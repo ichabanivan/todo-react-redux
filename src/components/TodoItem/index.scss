@@ -1,0 +1,42 @@
+.list-group-item {
+
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  align-items: baseline;
+
+  &:last-child {
+
+    margin-bottom: 0;
+  }
+
+  i {
+
+    width: 5%;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .delete {
+
+    position: absolute;
+    right: 0;
+    top: 50%;
+    font-size: 20px;
+    margin-top: -10px;
+    display: none;
+  }
+
+  &:hover {
+    .delete {
+
+      display: block;
+    }
+  }
+
+  span {
+
+    width: 90%;
+  }
+}
