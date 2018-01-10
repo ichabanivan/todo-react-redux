@@ -1,0 +1,43 @@
+@import "_vars.scss";
+@import "_mixins.scss";
+@import "sprite.css";
+@import "_fonts.scss";
+
+* {
+
+  box-sizing: border-box;
+
+  &::before,
+  &::after {
+
+    box-sizing: border-box;
+  }
+
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+
+    color: #ccc;
+  }
+}
+
+
+body {
+  min-width: 320px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}

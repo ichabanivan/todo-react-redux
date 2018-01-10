@@ -1,0 +1,31 @@
+# Numerous always-ignore extensions
+*.bak
+*.diff
+*.err
+*.exe
+*.log
+*.log*
+*.orig
+*.rej
+*.sass-cache
+*.swo
+*.swp
+*.vi
+*.iws
+*.ini
+*~
+
+# Folders to ignore
+.publish
+.CVS
+.git
+.hg
+.svn
+node_modules
+bower_components
+build
+.idea/
+
+# Optional npm cache directory
+.npm
+
