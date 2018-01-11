@@ -30,9 +30,8 @@ class TodoItem extends Component {
         <span
           onClick={this.showModalLabel}
           className="item__label"
-          aria-hidden="true"
         >
-          {this.props.status}
+          { this.props.status }
         </span>
         <span className="item__date">
           {this.props.date}
