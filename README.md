@@ -1,4 +1,4 @@
-# Reactimize
+# Todo-react-redux
 
 ## Quick Overview
 
