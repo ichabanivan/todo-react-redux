@@ -51,17 +51,6 @@ const common = merge([
         },
       ]
     },
-    resolve: {
-      alias: {
-        'components': path.resolve(__dirname, './src/components'),
-        'containers': path.resolve(__dirname, './src/containers'),
-        'constants': path.resolve(__dirname, './src/constants'),
-        'actions': path.resolve(__dirname, './src/actions'),
-        'reducers': path.resolve(__dirname, './src/reducers'),
-        'store': path.resolve(__dirname, './src/store'),
-        'assets': path.resolve(__dirname, './src/assets'),
-      }
-    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV)

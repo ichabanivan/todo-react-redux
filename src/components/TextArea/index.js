@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 
 import './index.scss';
 
-import { addTodo } from 'actions/'
+import { addTodo, newText } from '../../actions/index'
 import { connect } from 'react-redux'
 
-@connect(null, { addTodo })
-export default class TextArea extends Component {
+class TextArea extends Component {
   constructor(props) {
     super(props)
   }
@@ -21,25 +20,31 @@ export default class TextArea extends Component {
 
       this.setState({
         value: ''
-      })
+      });
+
+      this.props.newText('')
     }
   };
 
   changeValue = (e) => {
     this.setState({
       value: e.target.value
-    })
+    });
+
+    this.props.newText(e.target.value)
   };
 
   render() {
     return (
       <input
-        className="form-control create-todo"
+        className="create-todo"
         placeholder="What needs to be done?"
-        onChange={this.changeValue}
-        onKeyPress={this.addItem}
-        value={this.state.value}
+        onChange={ this.changeValue }
+        onKeyPress={ this.addItem }
+        value={ this.state.value }
       />
     );
   }
 }
+
+export default connect(null, { addTodo, newText })(TextArea)

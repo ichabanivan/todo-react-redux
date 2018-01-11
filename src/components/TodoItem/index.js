@@ -4,45 +4,54 @@ import React, {Component} from 'react';
  */
 import './index.scss';
 
-import { removeTodo, toggleTodo } from 'actions/'
+import { removeTodo, toggleTodo, showModal } from '../../actions/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
   return { todos: state.Todos }
 };
 
-@connect(mapStateToProps, {removeTodo, toggleTodo})
-export default class TodoItem extends Component {
+class TodoItem extends Component {
   constructor(props) {
     super(props)
   }
-
-  checkTodo = () => {
-    let todo = {
-      id: this.props.id,
-      body: this.props.text,
-      finished: this.props.finished
-    };
-
-    this.props.toggleTodo(todo);
-  };
 
   removeTodo = () => {
     this.props.removeTodo(this.props.id);
   };
 
+  showModalLabel = () => {
+    this.props.showModal({
+      id: this.props.id,
+      text: 'do you want change label?',
+      type: 'label'
+    })
+  };
+
+  showModalDelete = () => {
+    this.props.showModal({
+      id: this.props.id,
+      text: 'do you want delete this item?',
+      type: 'delete'
+    })
+  };
+
   render() {
-    const checkboxClass = this.props.finished ? 'fa-check-square-o' : 'fa-square-o';
     return (
-      <li className="list-group-item">
-        <i
-          onClick={this.checkTodo}
-          className={`checkbox fa ${checkboxClass}`}
+      <li className="todo__item item">
+        <span
+          onClick={this.showModalLabel}
+          className="item__label"
           aria-hidden="true"
-        />
-        <span>{this.props.text}</span>
+        >
+          {this.props.status}
+        </span>
+        <span className="todo__date">
+          {this.props.date}
+        </span>
+        <span className="item__text">{this.props.text}</span>
         <i
-          onClick={this.removeTodo}
+          onClick={this.showModalDelete}
           className="fa fa-times delete"
           aria-hidden="true"
         />
@@ -50,3 +59,5 @@ export default class TodoItem extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, {removeTodo, toggleTodo, showModal})(TodoItem)

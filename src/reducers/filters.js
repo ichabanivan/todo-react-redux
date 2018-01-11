@@ -1,4 +1,4 @@
-import ACTIONS from 'constants/Actions';
+import ACTIONS from '../constants/index';
 
 let initialState = ACTIONS.FILTER_ALL;
 

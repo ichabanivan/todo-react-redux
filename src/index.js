@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from 'store/index';
+import store from './store/index';
 import { AppContainer } from 'react-hot-loader';
 
-import App  from 'containers/App';
+import App  from './containers/App';
 
 const renderApp = Component => {
   ReactDOM.render(
@@ -20,5 +20,5 @@ const renderApp = Component => {
 renderApp(App);
 
 if(module.hot) {
-  module.hot.accept('containers/App', () => { renderApp(App) })
+  module.hot.accept('./containers/App', () => { renderApp(App) })
 }

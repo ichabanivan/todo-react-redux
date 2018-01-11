@@ -1,6 +1,23 @@
-import ACTIONS from 'constants/Actions';
+import ACTIONS from '../constants/index';
 
-let initialState = [];
+let initialState = [{
+    id: 1515663517622,
+    body: 'asdasdasd',
+    status: 'new',
+    date: `${new Date(Date.now())}`
+  },
+  {
+    id: 1515622517622,
+    body: 'aasdasdasd',
+    status: 'review',
+    date: `${new Date(Date.now())}`
+  },
+  {
+    id: 1215622517622,
+    body: 'aasdasdasd',
+    status: 'completed',
+    date: `${new Date(Date.now())}`
+  }];
 
 export default function Todos(state = initialState, action) {
   switch (action.type) {
@@ -10,18 +27,61 @@ export default function Todos(state = initialState, action) {
       let todoItem = {
         id: Date.now(),
         body: action.text,
-        finished: false
+        status: 'new',
+        date: `${new Date(Date.now())}`
       };
 
-      todosArray.unshift(todoItem);
+      let isUnic = true;
+
+      if (!action.text) {
+        isUnic = false;
+      }
+
+      todosArray.map((todo) => {
+        if (todo.body === todoItem.body) {
+          isUnic = false;
+        }
+      });
+
+      if (isUnic) {
+        todosArray.unshift(todoItem);
+      }
 
       return todosArray;
+
     case ACTIONS.REMOVE_TODO:
       return state.filter((todo) => todo.id !== action.id);
+
     case ACTIONS.TOGGLE_TODO:
       return state.map(todo => {
-        return todo.id === action.todo.id ? { ...action.todo, finished: !action.todo.finished } : todo;
+        if (todo.id === action.id) {
+          let status;
+          let body = todo.body;
+          let id = todo.id;
+          let date = `${new Date(Date.now())}`;
+          switch (todo.status) {
+            case 'new': {
+              status = 'review';
+              break;
+            }
+            case 'review': {
+              status = 'completed';
+              break;
+            }
+            case 'completed': {
+              status = 'new';
+              break;
+            }
+            default: {
+              break;
+            }
+          }
+          return { body, id, status, date }
+        } else {
+          return todo
+        }
       });
+
     default:
       return state;
   }
