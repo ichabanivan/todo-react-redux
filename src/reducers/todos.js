@@ -1,23 +1,6 @@
 import ACTIONS from '../constants/index';
 
-let initialState = [{
-    id: 1515663517622,
-    body: 'asdasdasd',
-    status: 'new',
-    date: `${new Date(Date.now())}`
-  },
-  {
-    id: 1515622517622,
-    body: 'aasdasdasd',
-    status: 'review',
-    date: `${new Date(Date.now())}`
-  },
-  {
-    id: 1215622517622,
-    body: 'aasdasdasd',
-    status: 'completed',
-    date: `${new Date(Date.now())}`
-  }];
+let initialState = [];
 
 export default function Todos(state = initialState, action) {
   switch (action.type) {
