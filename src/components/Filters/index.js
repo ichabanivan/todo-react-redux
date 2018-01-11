@@ -1,16 +1,8 @@
 import React, {Component} from 'react';
-
 import './index.scss';
-
 import { filterAll, filterActive, filterCompleted } from '../../actions/index'
 import constants from '../../constants/index'
 import { connect } from 'react-redux'
-
-const mapStateToProps = (state) => {
-  return {
-    filter: state.Filters
-  }
-};
 
 class Filters extends Component {
   constructor(props) {
@@ -27,6 +19,12 @@ class Filters extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    filter: state.Filters
+  }
+};
 
 export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
 

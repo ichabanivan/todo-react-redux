@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-
-import { removeTodo, toggleTodo } from '../../actions/'
+import { removeTodo, toggleTodo } from '../../actions/index'
 import { connect } from 'react-redux'
 import TodoItem from '../../components/TodoItem'
 import Actions from '../../constants/index'

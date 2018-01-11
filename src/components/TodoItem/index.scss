@@ -21,6 +21,7 @@
   }
 
   .delete {
+
     font-size: 20px;
     display: block;
   }
@@ -35,12 +36,15 @@
     padding: 5px 10px;
     font-size: 0.8rem;
     color: #fff;
-    background-color: #26a69a;
+    background-color: #3a3a3a;
     border-radius: 2px;
+    margin-right: 5px;
+    cursor: pointer;
   }
 
   &__date {
 
-    width: 10%;
+    font-size: 10px;
+    width: 20%;
   }
 }

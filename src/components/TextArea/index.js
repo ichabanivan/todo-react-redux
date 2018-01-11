@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
 import './index.scss';
-
 import { addTodo, newText } from '../../actions/index'
 import { connect } from 'react-redux'
 

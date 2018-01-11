@@ -1,24 +1,12 @@
 import React, {Component} from 'react';
-/**
- * Styles for application
- */
 import './index.scss';
-
 import { removeTodo, toggleTodo, showModal } from '../../actions/index'
 import { connect } from 'react-redux'
-
-const mapStateToProps = (state) => {
-  return { todos: state.Todos }
-};
 
 class TodoItem extends Component {
   constructor(props) {
     super(props)
   }
-
-  removeTodo = () => {
-    this.props.removeTodo(this.props.id);
-  };
 
   showModalLabel = () => {
     this.props.showModal({
@@ -46,18 +34,21 @@ class TodoItem extends Component {
         >
           {this.props.status}
         </span>
-        <span className="todo__date">
+        <span className="item__date">
           {this.props.date}
         </span>
         <span className="item__text">{this.props.text}</span>
         <i
           onClick={this.showModalDelete}
-          className="fa fa-times delete"
-          aria-hidden="true"
-        />
+          className="delete"
+        > X </i>
       </li>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { todos: state.Todos }
+};
 
 export default connect(mapStateToProps, {removeTodo, toggleTodo, showModal})(TodoItem)
