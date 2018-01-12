@@ -51,7 +51,6 @@ class TodoList extends Component {
             }
           </div>
           <Route path="/:id" component={EditTodo}/>
-          <Route path="/" component={null}/>
         </div>
       </Router>
     );
