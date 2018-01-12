@@ -20,28 +20,31 @@ class TodoList extends Component {
 
   render() {
     const {
-      todos
+      todos,
+      filter,
+      textarea
     } = this.props;
+
     return (
       <Router history={history}>
         <div className="todo-edit">
           <div className="todo__list">
             {
               todos.map(todo => {
-                if (this.props.filter === Actions.FILTER_ALL) {
-                  if (todo.body.indexOf(this.props.textarea) >= 0) {
+                if (filter === Actions.FILTER_ALL) {
+                  if (todo.body.indexOf(textarea) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>
                   }
-                } else if (this.props.filter === Actions.FILTER_ACTIVE && (todo.status === 'new' || todo.status === 'review')) {
-                  if (todo.body.indexOf(this.props.textarea) >= 0) {
+                } else if (filter === Actions.FILTER_ACTIVE && (todo.status === 'new' || todo.status === 'review')) {
+                  if (todo.body.indexOf(textarea) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>
                   }
-                } else if (this.props.filter === Actions.FILTER_COMPLETED && todo.status === 'completed') {
-                  if (todo.body.indexOf(this.props.textarea) >= 0) {
+                } else if (filter === Actions.FILTER_COMPLETED && todo.status === 'completed') {
+                  if (todo.body.indexOf(textarea) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>

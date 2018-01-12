@@ -35,7 +35,7 @@ class App extends Component {
         <Filters />
         <Modal
           label={ this.confirmChangeLabel }
-          delete={ this.confirmDelete }
+          del={ this.confirmDelete }
           isVisible={ this.props.modal.isVisible }
           text={ this.props.modal.text }
         />

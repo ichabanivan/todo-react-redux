@@ -34,7 +34,7 @@ class TodoItem extends Component {
     return (
       <div className="todo__item item">
         <span
-          onClick={this.showModalLabel}
+          onClick={ this.showModalLabel }
           className="item__label"
         >
           { status }
@@ -44,7 +44,7 @@ class TodoItem extends Component {
         </span>
         <span className="item__text">{ body }</span>
         <i
-          onClick={this.showModalDelete}
+          onClick={ this.showModalDelete }
           className="delete"
         > X </i>
       </div>

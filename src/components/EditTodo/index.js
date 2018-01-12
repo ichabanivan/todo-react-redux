@@ -53,7 +53,7 @@ class EditTodo extends Component {
     return (
       <div className="todo__edit edit">
         <h2>Edit todo</h2>
-        <div>{id}</div>
+        <div><span>id:</span>{id}</div>
         <input
           className="edit__field"
           onKeyPress={this.changeItem}

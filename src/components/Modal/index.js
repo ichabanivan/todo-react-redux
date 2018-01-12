@@ -17,13 +17,20 @@ class Modal extends Component {
   };
 
   render() {
-    if (this.props.modal.isVisible) {
+    const {
+      modal,
+      text,
+      label,
+      del
+    } = this.props;
+
+    if (modal.isVisible) {
       return (
         <div>
           <div className="modal-overlay" onClick={ this.handleHide }>
             <div className="modal" onClick={ this.stopPropagation }>
               <div className="modal-content">
-                <h4>{this.props.text}</h4>
+                <h4>{ text }</h4>
               </div>
               <div className="modal-footer">
                 <button
@@ -31,7 +38,7 @@ class Modal extends Component {
                   onClick={ this.handleHide }>Disagree</button>
                 <button
                   className="modal-action"
-                  onClick={ this.props.modal.type === 'label' ? this.props.label : this.props.delete }
+                  onClick={ modal.type === 'label' ? label : del }
                 >
                   Agree
                 </button>
