@@ -53,19 +53,19 @@ class EditTodo extends Component {
     return (
       <div className="todo__edit edit">
         <h2>Edit todo</h2>
-        <div><span>id:</span>{id}</div>
+        <p><span>id:</span>{id}</p>
         <input
           className="edit__field"
           onKeyPress={this.changeItem}
           value={this.state.body}
           onChange={this.changeInput}/>
         <p>{date}</p>
-        <div
+        <button
           onClick={this.showModalLabel}
           className="item__label"
         >
           { status }
-        </div>
+        </button>
       </div>
     );
   }

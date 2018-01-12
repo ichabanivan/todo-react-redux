@@ -3,10 +3,17 @@
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
+  flex-direction: column;
   position: relative;
   align-items: baseline;
   border: 1px solid #3a3a3a;
   justify-content: space-between;
+
+  &__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
 
   &:last-child {
 
@@ -28,7 +35,7 @@
 
   &__text {
 
-    width: 70%;
+    width: 80%;
   }
 
   &__label {
@@ -58,4 +65,8 @@
     display: flex;
     width: 100%;
   }
+}
+
+button {
+  border: none;
 }
