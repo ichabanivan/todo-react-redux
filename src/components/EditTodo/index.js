@@ -31,7 +31,7 @@ class EditTodo extends Component {
       let obj = {
         id: this.state.id,
         body: e.target.value
-      }
+      };
 
       this.props.updateText(obj)
     }

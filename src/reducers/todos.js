@@ -30,70 +30,16 @@ let initialState =  [
 export default function Todos(state = initialState, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
-      let isUnic = true;
-
-      // if empty
-      if (!action.todo.body) {
-        isUnic = false;
-      }
-
-      state.map((todo) => {
-        if (todo.body === action.todo.body) {
-          isUnic = false;
-        }
-      });
-
-      if (isUnic) {
-        return [action.todo, ...state];
-      } else {
-        return state
-      }
+      return action.payload;
 
     case ACTIONS.REMOVE_TODO:
-      return state.filter((todo) => todo.id !== action.id);
+      return action.payload;
 
     case ACTIONS.UPDATE_TEXT:
-      return state.map(todo => {
-        if (todo.id === action.obj.id) {
-          return {
-            ...todo,
-            body: action.obj.body,
-            date: `${new Date(Date.now())}`
-          }
-        } else {
-          return todo
-        }
-      });
+      return action.payload;
 
     case ACTIONS.TOGGLE_TODO:
-      return state.map(todo => {
-        if (todo.id === action.id) {
-          let status;
-          let body = todo.body;
-          let id = todo.id;
-          let date = `${new Date(Date.now())}`;
-          switch (todo.status) {
-            case 'new': {
-              status = 'review';
-              break;
-            }
-            case 'review': {
-              status = 'completed';
-              break;
-            }
-            case 'completed': {
-              status = 'new';
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-          return { body, id, status, date }
-        } else {
-          return todo
-        }
-      });
+      return action.payload;
 
     default:
       return state;
