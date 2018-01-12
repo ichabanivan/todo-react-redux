@@ -1,13 +1,14 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import { removeTodo, toggleTodo } from '../../actions/'
 import { connect } from 'react-redux'
 import TodoItem from '../../components/TodoItem'
 import Actions from '../../constants/'
 import EditTodo from '../EditTodo/'
-import './index.scss'
+import './index.scss';
+import history from '../../history'
 
 import {
-  BrowserRouter as Router,
+  Router,
   Route,
   Link
 } from 'react-router-dom'
@@ -22,7 +23,7 @@ class TodoList extends Component {
       todos
     } = this.props;
     return (
-      <Router>
+      <Router history={history}>
         <div className="todo-edit">
           <div className="todo__list">
             {
@@ -50,6 +51,7 @@ class TodoList extends Component {
             }
           </div>
           <Route path="/:id" component={EditTodo}/>
+          <Route path="/" component={null}/>
         </div>
       </Router>
     );

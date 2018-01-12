@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './index.scss';
 import { addTodo, newText } from '../../actions/'
 import { connect } from 'react-redux'
+import history from '../../history'
 
 class Input extends Component {
   constructor(props) {
@@ -32,6 +33,10 @@ class Input extends Component {
     });
   };
 
+  hideEditing = () => {
+    history.push('/')
+  };
+
   render() {
     return (
       <input
@@ -40,6 +45,7 @@ class Input extends Component {
         onChange={ this.changeValue }
         onKeyPress={ this.addItem }
         value={ this.state.value }
+        onFocus={ this.hideEditing }
       />
     );
   }

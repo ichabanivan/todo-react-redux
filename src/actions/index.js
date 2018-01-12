@@ -29,11 +29,13 @@ export const hideModal = () => ({
 });
 
 export const addTodo = (text) => {
+  let dateNow = Date.now();
+
   let todo = {
-    id: Date.now(),
+    id: dateNow,
     body: text,
     status: 'new',
-    date: `${new Date(Date.now())}`
+    date: `${new Date(dateNow)}`
   };
 
   return {

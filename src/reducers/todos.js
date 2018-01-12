@@ -10,13 +10,19 @@ let initialState =  [
   {
     id: 1515751021473,
     body: 'Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
-    status: 'new',
-    date: 'Fri Jan 12 2018 11:57:01 GMT+0200 (EET)'
+    status: 'review',
+    date: 'Fri Jan 12 2018 11:37:01 GMT+0200 (EET)'
   },
   {
     id: 1515751015376,
     body: 'Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
-    status: 'new',
+    status: 'completed',
+    date: 'Fri Jan 12 2018 11:56:55 GMT+0200 (EET)'
+  },
+  {
+    id: 1515751015379,
+    body: 'Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
+    status: 'completed',
     date: 'Fri Jan 12 2018 11:56:55 GMT+0200 (EET)'
   }
 ];

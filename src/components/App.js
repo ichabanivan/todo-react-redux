@@ -8,6 +8,7 @@ import Filters from '../components/Filters/'
 import Modal from '../components/Modal/'
 import { hideModal, toggleTodo, removeTodo } from '../actions/'
 import {connect} from 'react-redux'
+import history from '../history'
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
   confirmDelete = () => {
     this.props.hideModal();
     this.props.removeTodo(this.props.modal.id);
+    history.push('/')
   };
 
   confirmChangeLabel = () => {
