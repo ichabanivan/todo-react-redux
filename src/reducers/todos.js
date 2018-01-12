@@ -1,39 +1,63 @@
-import ACTIONS from '../constants/index';
+import ACTIONS from '../constants/';
 
-let initialState = [];
+let initialState =  [
+  {
+    id: 1515751026748,
+    body: 'Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh.',
+    status: 'new',
+    date: 'Fri Jan 12 2018 11:57:06 GMT+0200 (EET)'
+  },
+  {
+    id: 1515751021473,
+    body: 'Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
+    status: 'new',
+    date: 'Fri Jan 12 2018 11:57:01 GMT+0200 (EET)'
+  },
+  {
+    id: 1515751015376,
+    body: 'Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
+    status: 'new',
+    date: 'Fri Jan 12 2018 11:56:55 GMT+0200 (EET)'
+  }
+];
 
 export default function Todos(state = initialState, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
-      let todosArray = [...state];
-
-      let todoItem = {
-        id: Date.now(),
-        body: action.text,
-        status: 'new',
-        date: `${new Date(Date.now())}`
-      };
-
       let isUnic = true;
 
-      if (!action.text) {
+      // if empty
+      if (!action.todo.body) {
         isUnic = false;
       }
 
-      todosArray.map((todo) => {
-        if (todo.body === todoItem.body) {
+      state.map((todo) => {
+        if (todo.body === action.todo.body) {
           isUnic = false;
         }
       });
 
       if (isUnic) {
-        todosArray.unshift(todoItem);
+        return [action.todo, ...state];
+      } else {
+        return state
       }
-
-      return todosArray;
 
     case ACTIONS.REMOVE_TODO:
       return state.filter((todo) => todo.id !== action.id);
+
+    case ACTIONS.UPDATE_TEXT:
+      return state.map(todo => {
+        if (todo.id === action.obj.id) {
+          return {
+            ...todo,
+            body: action.obj.body,
+            date: `${new Date(Date.now())}`
+          }
+        } else {
+          return todo
+        }
+      });
 
     case ACTIONS.TOGGLE_TODO:
       return state.map(todo => {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { filterAll, filterActive, filterCompleted } from '../../actions/index'
-import constants from '../../constants/index'
+import { filterAll, filterActive, filterCompleted } from '../../actions/'
+import constants from '../../constants/'
 import { connect } from 'react-redux'
 
 class Filters extends Component {
@@ -10,23 +10,30 @@ class Filters extends Component {
   }
 
   render() {
+    const {
+      filter,
+      filterAll,
+      filterActive,
+      filterCompleted
+    } = this.props;
+
     return (
       <div className="filters">
         <button
-          className={this.props.filter ===  constants.FILTER_ALL ? 'filter active' : 'filter'}
-          onClick={ this.props.filterAll }
+          className={ filter ===  constants.FILTER_ALL ? 'filter active' : 'filter'}
+          onClick={ filterAll }
         >
           All
         </button>
         <button
-          className={this.props.filter ===  constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
-          onClick={ this.props.filterActive }
+          className={ filter ===  constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
+          onClick={ filterActive }
         >
           Active
         </button>
         <button
-          className={this.props.filter ===  constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
-          onClick={ this.props.filterCompleted }
+          className={ filter ===  constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
+          onClick={ filterCompleted }
         >
           Completed
         </button>

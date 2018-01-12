@@ -1,4 +1,4 @@
-import ACTIONS from '../constants/index';
+import ACTIONS from '../constants/'
 
 export default function Textarea(state = '', action) {
   switch (action.type) {

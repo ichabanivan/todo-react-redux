@@ -1,23 +1,46 @@
-import ACTIONS from '../constants/index';
+import ACTIONS from '../constants/';
+
+export const updateText = (obj) => ({
+  type: ACTIONS.UPDATE_TEXT,
+  obj
+});
 
 export const newText = (text) => ({
   type: ACTIONS.NEW_TEXT,
   text
 });
 
-export const showModal = (obj) => ({
-  type: ACTIONS.SHOW_MODAL,
-  obj
-});
+export const showModal = (obj) => {
+  let modal = {
+    id: obj.id,
+    isVisible: true,
+    text: obj.text,
+    type: obj.type
+  };
+
+  return {
+    type: ACTIONS.SHOW_MODAL,
+    modal
+  }
+};
 
 export const hideModal = () => ({
   type: ACTIONS.HIDE_MODAL
 });
 
-export const addTodo = (text) => ({
-  type: ACTIONS.ADD_TODO,
-  text
-});
+export const addTodo = (text) => {
+  let todo = {
+    id: Date.now(),
+    body: text,
+    status: 'new',
+    date: `${new Date(Date.now())}`
+  };
+
+  return {
+    type: ACTIONS.ADD_TODO,
+    todo
+  }
+};
 
 export const removeTodo = (id) => ({
   type: ACTIONS.REMOVE_TODO,

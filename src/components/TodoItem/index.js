@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { removeTodo, toggleTodo, showModal } from '../../actions/index'
+import { removeTodo, toggleTodo, showModal } from '../../actions/'
 import { connect } from 'react-redux'
 
 class TodoItem extends Component {
@@ -10,7 +10,7 @@ class TodoItem extends Component {
 
   showModalLabel = () => {
     this.props.showModal({
-      id: this.props.id,
+      id: this.props.todo.id,
       text: 'do you want change label?',
       type: 'label'
     })
@@ -18,30 +18,36 @@ class TodoItem extends Component {
 
   showModalDelete = () => {
     this.props.showModal({
-      id: this.props.id,
+      id: this.props.todo.id,
       text: 'do you want delete this item?',
       type: 'delete'
     })
   };
 
   render() {
+    const {
+      body,
+      status,
+      date
+    } = this.props.todo;
+
     return (
-      <li className="todo__item item">
+      <div className="todo__item item">
         <span
           onClick={this.showModalLabel}
           className="item__label"
         >
-          { this.props.status }
+          { status }
         </span>
         <span className="item__date">
-          {this.props.date}
+          { date }
         </span>
-        <span className="item__text">{this.props.text}</span>
+        <span className="item__text">{ body }</span>
         <i
           onClick={this.showModalDelete}
           className="delete"
         > X </i>
-      </li>
+      </div>
     );
   }
 }

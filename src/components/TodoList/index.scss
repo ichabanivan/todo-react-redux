@@ -1,4 +1,11 @@
 .todo__list {
 
   padding: 0;
+  width: 50%;
+}
+
+.todo-edit {
+
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { addTodo, newText } from '../../actions/index'
+import { addTodo, newText } from '../../actions/'
 import { connect } from 'react-redux'
 
-class TextArea extends Component {
+class Input extends Component {
   constructor(props) {
     super(props)
   }
@@ -30,8 +30,6 @@ class TextArea extends Component {
     }, () => {
       this.props.newText(this.state.value)
     });
-
-
   };
 
   render() {
@@ -47,4 +45,4 @@ class TextArea extends Component {
   }
 }
 
-export default connect(null, { addTodo, newText })(TextArea)
+export default connect(null, { addTodo, newText })(Input)

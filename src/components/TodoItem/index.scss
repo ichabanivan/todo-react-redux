@@ -48,3 +48,14 @@
     width: 20%;
   }
 }
+
+.todo {
+  &__item {
+
+    text-decoration: none;
+    color: #000;
+    margin-bottom: 30px;
+    display: flex;
+    width: 100%;
+  }
+}

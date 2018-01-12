@@ -7,6 +7,7 @@ const FILTER_COMPLETED = 'FILTER_COMPLETED';
 const SHOW_MODAL = 'SHOW_MODAL';
 const HIDE_MODAL = 'HIDE_MODAL';
 const NEW_TEXT = 'NEW_TEXT';
+const UPDATE_TEXT = 'UPDATE_TEXT';
 
 export default {
   ADD_TODO,
@@ -17,5 +18,6 @@ export default {
   FILTER_COMPLETED,
   SHOW_MODAL,
   HIDE_MODAL,
-  NEW_TEXT
+  NEW_TEXT,
+  UPDATE_TEXT
 };
