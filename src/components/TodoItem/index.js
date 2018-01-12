@@ -47,7 +47,9 @@ class TodoItem extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { todos: state.Todos }
+  return {
+    todos: state.Todos
+  }
 };
 
-export default connect(mapStateToProps, {removeTodo, toggleTodo, showModal})(TodoItem)
+export default connect(mapStateToProps, { removeTodo, toggleTodo, showModal })(TodoItem)

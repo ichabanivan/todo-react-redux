@@ -18,18 +18,20 @@ class TextArea extends Component {
 
       this.setState({
         value: ''
+      }, () => {
+        this.props.newText(this.state.value)
       });
-
-      this.props.newText('')
     }
   };
 
   changeValue = (e) => {
     this.setState({
       value: e.target.value
+    }, () => {
+      this.props.newText(this.state.value)
     });
 
-    this.props.newText(e.target.value)
+
   };
 
   render() {

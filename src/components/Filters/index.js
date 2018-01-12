@@ -12,9 +12,24 @@ class Filters extends Component {
   render() {
     return (
       <div className="filters">
-        <button className={this.props.filter ===  constants.FILTER_ALL ? 'filter active' : 'filter'} onClick={ this.props.filterAll }>All</button>
-        <button className={this.props.filter ===  constants.FILTER_ACTIVE ? 'filter active' : 'filter'} onClick={ this.props.filterActive }>Active</button>
-        <button className={this.props.filter ===  constants.FILTER_COMPLETED ? 'filter active' : 'filter'} onClick={ this.props.filterCompleted }>Completed</button>
+        <button
+          className={this.props.filter ===  constants.FILTER_ALL ? 'filter active' : 'filter'}
+          onClick={ this.props.filterAll }
+        >
+          All
+        </button>
+        <button
+          className={this.props.filter ===  constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
+          onClick={ this.props.filterActive }
+        >
+          Active
+        </button>
+        <button
+          className={this.props.filter ===  constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
+          onClick={ this.props.filterCompleted }
+        >
+          Completed
+        </button>
       </div>
     );
   }
