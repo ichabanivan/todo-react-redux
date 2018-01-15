@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux'
-import Todos from './todos'
-import Filters from './filters'
-import Modal from './modal'
-import InputText from './inputText'
+import todos from './todos'
+import filter from './filter'
+import modal from './modal'
+import inputText from './inputText'
 
 export default combineReducers({
-  Todos,
-  Filters,
-  Modal,
-  InputText
+  todos,
+  filter,
+  modal,
+  inputText
 });

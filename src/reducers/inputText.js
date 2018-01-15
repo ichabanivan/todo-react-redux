@@ -1,6 +1,6 @@
-import CONSTANTS from '../constants/'
+import CONSTANTS from '../constants/';
 
-export default function InputText(state = '', action) {
+export default function inputText(state = '', action) {
   switch (action.type) {
     case CONSTANTS.NEW_TEXT:
       return action.text;

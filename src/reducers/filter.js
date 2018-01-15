@@ -1,8 +1,6 @@
 import CONSTANTS from '../constants/'
 
-let initialState = CONSTANTS.FILTER_ALL;
-
-export default function Filters(state = initialState, action) {
+export default function filter(state = CONSTANTS.FILTER_ALL, action) {
   switch (action.type) {
     case CONSTANTS.FILTER_ALL:
       return CONSTANTS.FILTER_ALL;

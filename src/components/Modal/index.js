@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import './index.scss'
-import { hideModal } from '../../actions/'
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import './index.scss';
+import { hideModal } from '../../actions/';
 
 class Modal extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class Modal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    modal: state.Modal
+    modal: state.modal
   }
 };
 

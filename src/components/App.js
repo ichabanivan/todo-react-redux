@@ -9,6 +9,7 @@ import Modal from '../components/Modal/'
 import { hideModal, toggleTodo, removeTodo } from '../actions/'
 import {connect} from 'react-redux'
 import history from '../history'
+import {withRouter} from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { modal: state.Modal}
+  return { modal: state.modal}
 };
 
-export default connect(mapStateToProps, {hideModal, removeTodo, toggleTodo})(App)
+export default withRouter(connect(mapStateToProps, {hideModal, removeTodo, toggleTodo})(App))

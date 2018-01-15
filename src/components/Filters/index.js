@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import './index.scss'
-import { filterAll, filterActive, filterCompleted } from '../../actions/'
-import constants from '../../constants/'
-import { connect } from 'react-redux'
-import history from '../../history'
+import React, {Component} from 'react';
+import './index.scss';
+import { filterAll, filterActive, filterCompleted } from '../../actions/';
+import constants from '../../constants/';
+import { connect } from 'react-redux';
+import history from '../../history';
 
 class Filters extends Component {
   constructor(props) {
@@ -33,19 +33,19 @@ class Filters extends Component {
     return (
       <div className="filters">
         <button
-          className={ filter === constants.FILTER_ALL ? 'filter active' : 'filter'}
+          className={`filter ${ filter === constants.FILTER_ALL ? 'active' : ''}`}
           onClick={ this.filterAll }
         >
           All
         </button>
         <button
-          className={ filter === constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
+          className={`filter ${filter === constants.FILTER_ACTIVE ? 'active' : ''}`}
           onClick={ this.filterActive }
         >
           Active
         </button>
         <button
-          className={ filter === constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
+          className={`filter ${filter === constants.FILTER_COMPLETED ? 'active' : ''}`}
           onClick={ this.filterCompleted }
         >
           Completed
@@ -57,7 +57,7 @@ class Filters extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    filter: state.Filters
+    filter: state.filters
   }
 };
 

@@ -1,26 +1,13 @@
 import ACTIONS from '../constants/';
-import store from '../store'
 
-export const updateText = (obj) => {
-  let state = store.getState().Todos;
-
-  let payload = state.map(todo => {
-    if (todo.id === obj.id) {
-      return {
-        ...todo,
-        body: obj.body,
-        date: `${new Date(Date.now())}`
-      }
-    } else {
-      return todo
-    }
-  });
-
-  return ({
-    type: ACTIONS.UPDATE_TEXT,
-    payload
-  });
-};
+export const updateText = (obj) => ({
+  type: ACTIONS.UPDATE_TEXT,
+  payload: {
+    body: obj.body,
+    id: obj.id,
+    date: `${new Date(Date.now())}`
+  }
+});
 
 export const newText = (text) => ({
   type: ACTIONS.NEW_TEXT,
@@ -45,98 +32,25 @@ export const hideModal = () => ({
   type: ACTIONS.HIDE_MODAL
 });
 
-export const addTodo = (text) => {
-  let dateNow = Date.now(),
-    payload,
-    isUnic = true;
-
-  const state = store.getState().Todos;
-
-  let todo = {
-    id: dateNow,
+export const addTodo = (text) => ({
+  type: ACTIONS.ADD_TODO,
+  payload: {
+    date: `${new Date(Date.now())}`,
     body: text,
     status: 'new',
-    date: `${new Date(dateNow)}`
-  };
-
-
-  // if empty
-  if (!todo.body) {
-    isUnic = false;
+    completed: false
   }
+});
 
-  state.map((el) => {
-    if (el.body === todo.body) {
-      isUnic = false;
-    }
-  });
+export const removeTodo = (id) => ({
+  type: ACTIONS.REMOVE_TODO,
+  id
+});
 
-  let isTodo = isUnic ? todo : null;
-
-  if (isTodo) {
-    payload = [
-      todo,
-      ...state
-    ]
-  } else {
-    payload = state;
-  }
-
-  return {
-    type: ACTIONS.ADD_TODO,
-    payload
-  }
-};
-
-export const removeTodo = (id) => {
-  let state = store.getState().Todos;
-
-  let payload = state.filter((todo) => todo.id !== id);
-
-  return {
-    type: ACTIONS.REMOVE_TODO,
-    payload
-  };
-};
-
-export const toggleTodo = (id) => {
-  let state = store.getState().Todos;
-
-  let payload = state.map(todo => {
-    if (todo.id === id) {
-      let status;
-      let body = todo.body;
-      let id = todo.id;
-      let date = `${new Date(Date.now())}`;
-
-      switch (todo.status) {
-        case 'new': {
-          status = 'review';
-          break;
-        }
-        case 'review': {
-          status = 'completed';
-          break;
-        }
-        case 'completed': {
-          status = 'new';
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-      return { body, id, status, date }
-    } else {
-      return todo
-    }
-  });
-
-  return {
-    type: ACTIONS.TOGGLE_TODO,
-    payload
-  };
-};
+export const toggleTodo = (id) => ({
+  type: ACTIONS.TOGGLE_TODO,
+  id
+});
 
 export const filterAll = () => ({
   type: ACTIONS.FILTER_ALL

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import './index.scss'
-import { addTodo, newText } from '../../actions/'
-import { connect } from 'react-redux'
-import history from '../../history'
+import React, {Component} from 'react';
+import './index.scss';
+import { addTodo, newText } from '../../actions/';
+import { connect } from 'react-redux';
+import history from '../../history';
 
 class Input extends Component {
   constructor(props) {

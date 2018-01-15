@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import { removeTodo, toggleTodo } from '../../actions/'
-import { connect } from 'react-redux'
-import TodoItem from '../../components/TodoItem'
-import Actions from '../../constants/'
-import EditTodo from '../EditTodo/'
+import { removeTodo, toggleTodo } from '../../actions/';
+import { connect } from 'react-redux';
+import TodoItem from '../../components/TodoItem';
+import CONSTANTS from '../../constants/';
+import EditTodo from '../EditTodo/';
 import './index.scss';
-import history from '../../history'
 
 import {
-  Router,
   Route,
-  Link
+  Link,
+  withRouter
 } from 'react-router-dom'
 
 class TodoList extends Component {
@@ -20,48 +19,37 @@ class TodoList extends Component {
 
   render() {
     const {
-      todos,
-      filter,
-      inputText
+      todos
     } = this.props;
 
     return (
-      <Router history={history}>
-        <div className="todo-edit">
-          <div className="todo__list">
-            {
-              todos.map(todo => {
-                if (filter === Actions.FILTER_ALL) {
-                  if (todo.body.indexOf(inputText) >= 0) {
-                    return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
-                      <TodoItem todo={todo} />
-                    </Link>
-                  }
-                } else if (filter === Actions.FILTER_ACTIVE && (todo.status === 'new' || todo.status === 'review')) {
-                  if (todo.body.indexOf(inputText) >= 0) {
-                    return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
-                      <TodoItem todo={todo} />
-                    </Link>
-                  }
-                } else if (filter === Actions.FILTER_COMPLETED && todo.status === 'completed') {
-                  if (todo.body.indexOf(inputText) >= 0) {
-                    return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
-                      <TodoItem todo={todo} />
-                    </Link>
-                  }
-                }
-              })
-            }
-          </div>
-          <Route path="/:id" component={EditTodo}/>
+      <div className="todo-edit">
+        <div className="todo__list">
+          {
+            todos.map((todo, index) => <Link to={`/${index}`} key={index} className="todo__item">
+              <TodoItem todo={todo} id={index} />
+            </Link>)
+          }
         </div>
-      </Router>
+        <Route path="/:id" component={EditTodo}/>
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return { todos: state.Todos, filter: state.Filters, inputText: state.InputText }
+const filterTodos = (todos, filter, inputText) => {
+  switch (filter) {
+    case CONSTANTS.FILTER_ALL:
+      return todos.filter(t => t.body.search(new RegExp(inputText, 'i')) !== -1);
+    case CONSTANTS.FILTER_COMPLETED:
+      return todos.filter(t => t.status === 'completed' && (t.body.search(new RegExp(inputText, 'i')) !== -1));
+    case CONSTANTS.FILTER_ACTIVE:
+      return todos.filter(t => t.status === 'new' && (t.body.search(new RegExp(inputText, 'i')) !== -1));
+  }
 };
 
-export default connect(mapStateToProps, { removeTodo, toggleTodo })(TodoList)
+const mapStateToProps = (state) => {
+  return { todos: filterTodos(state.todos, state.filter, state.inputText)}
+};
+
+export default withRouter(connect(mapStateToProps, { removeTodo, toggleTodo })(TodoList))

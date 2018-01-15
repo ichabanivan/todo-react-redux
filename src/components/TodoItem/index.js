@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import './index.scss'
-import { removeTodo, toggleTodo, showModal } from '../../actions/'
-import { connect } from 'react-redux'
+import React, {Component} from 'react';
+import './index.scss';
+import { removeTodo, toggleTodo, showModal } from '../../actions/';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class TodoItem extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class TodoItem extends Component {
 
   showModalLabel = () => {
     this.props.showModal({
-      id: this.props.todo.id,
+      id: this.props.id,
       text: 'do you want change label?',
       type: 'label'
     })
@@ -20,7 +21,7 @@ class TodoItem extends Component {
     e.preventDefault();
 
     this.props.showModal({
-      id: this.props.todo.id,
+      id: this.props.id,
       text: 'do you want delete this item?',
       type: 'delete'
     })
@@ -34,7 +35,7 @@ class TodoItem extends Component {
     } = this.props.todo;
 
     return (
-      <div className="todo__item item">
+      <div className="todo__item item" >
         <div className="item__top">
           <button
             onClick={ this.showModalLabel }
@@ -62,8 +63,8 @@ class TodoItem extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.Todos
+    todos: state.todos
   }
 };
 
-export default connect(mapStateToProps, { removeTodo, toggleTodo, showModal })(TodoItem)
+export default withRouter(connect(mapStateToProps, { removeTodo, toggleTodo, showModal })(TodoItem))
