@@ -66,7 +66,6 @@ export default function todos(state = initialState, action) {
       return state.map((todo, index) => {
         if (index === parseInt(action.id)) {
           let status,
-            completed,
             body = todo.body,
             id = index,
             date = `${new Date(Date.now())}`;
@@ -88,6 +87,7 @@ export default function todos(state = initialState, action) {
               break;
             }
           }
+
           return {
             body,
             id,

@@ -37,8 +37,7 @@ export const addTodo = (text) => ({
   payload: {
     date: `${new Date(Date.now())}`,
     body: text,
-    status: 'new',
-    completed: false
+    status: 'new'
   }
 });
 
