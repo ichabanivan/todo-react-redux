@@ -1,4 +1,4 @@
-import ACTIONS from '../constants/';
+import CONSTANTS from '../constants/';
 
 let initialState =  [
   {
@@ -29,16 +29,16 @@ let initialState =  [
 
 export default function Todos(state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.ADD_TODO:
+    case CONSTANTS.ADD_TODO:
       return action.payload;
 
-    case ACTIONS.REMOVE_TODO:
+    case CONSTANTS.REMOVE_TODO:
       return action.payload;
 
-    case ACTIONS.UPDATE_TEXT:
+    case CONSTANTS.UPDATE_TEXT:
       return action.payload;
 
-    case ACTIONS.TOGGLE_TODO:
+    case CONSTANTS.TOGGLE_TODO:
       return action.payload;
 
     default:

@@ -33,10 +33,10 @@ class App extends Component {
         <TodoList />
         <Filters />
         <Modal
-          label={ this.confirmChangeLabel }
-          del={ this.confirmDelete }
-          isVisible={ this.props.modal.isVisible }
-          text={ this.props.modal.text }
+          label = { this.confirmChangeLabel }
+          del = { this.confirmDelete }
+          isVisible = { this.props.modal.isVisible }
+          text = { this.props.modal.text }
         />
       </div>
     );

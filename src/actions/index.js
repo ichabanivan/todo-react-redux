@@ -108,6 +108,7 @@ export const toggleTodo = (id) => {
       let body = todo.body;
       let id = todo.id;
       let date = `${new Date(Date.now())}`;
+
       switch (todo.status) {
         case 'new': {
           status = 'review';

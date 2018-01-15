@@ -33,19 +33,19 @@ class Filters extends Component {
     return (
       <div className="filters">
         <button
-          className={ filter ===  constants.FILTER_ALL ? 'filter active' : 'filter'}
+          className={ filter === constants.FILTER_ALL ? 'filter active' : 'filter'}
           onClick={ this.filterAll }
         >
           All
         </button>
         <button
-          className={ filter ===  constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
+          className={ filter === constants.FILTER_ACTIVE ? 'filter active' : 'filter'}
           onClick={ this.filterActive }
         >
           Active
         </button>
         <button
-          className={ filter ===  constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
+          className={ filter === constants.FILTER_COMPLETED ? 'filter active' : 'filter'}
           onClick={ this.filterCompleted }
         >
           Completed

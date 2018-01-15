@@ -22,7 +22,7 @@ class TodoList extends Component {
     const {
       todos,
       filter,
-      textarea
+      inputText
     } = this.props;
 
     return (
@@ -32,19 +32,19 @@ class TodoList extends Component {
             {
               todos.map(todo => {
                 if (filter === Actions.FILTER_ALL) {
-                  if (todo.body.indexOf(textarea) >= 0) {
+                  if (todo.body.indexOf(inputText) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>
                   }
                 } else if (filter === Actions.FILTER_ACTIVE && (todo.status === 'new' || todo.status === 'review')) {
-                  if (todo.body.indexOf(textarea) >= 0) {
+                  if (todo.body.indexOf(inputText) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>
                   }
                 } else if (filter === Actions.FILTER_COMPLETED && todo.status === 'completed') {
-                  if (todo.body.indexOf(textarea) >= 0) {
+                  if (todo.body.indexOf(inputText) >= 0) {
                     return <Link to={`/${todo.id}`} key={todo.id} className="todo__item">
                       <TodoItem todo={todo} />
                     </Link>
@@ -61,7 +61,7 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { todos: state.Todos, filter: state.Filters, textarea: state.Textarea }
+  return { todos: state.Todos, filter: state.Filters, inputText: state.InputText }
 };
 
 export default connect(mapStateToProps, { removeTodo, toggleTodo })(TodoList)
