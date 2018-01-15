@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import './index.scss';
+import React, {Component} from 'react'
+import './index.scss'
 import { removeTodo, toggleTodo, showModal } from '../../actions/'
 import { connect } from 'react-redux'
 
@@ -16,7 +16,9 @@ class TodoItem extends Component {
     })
   };
 
-  showModalDelete = () => {
+  showModalDelete = (e) => {
+    e.preventDefault();
+
     this.props.showModal({
       id: this.props.todo.id,
       text: 'do you want delete this item?',

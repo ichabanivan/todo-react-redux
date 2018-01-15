@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './store/';
-import { AppContainer } from 'react-hot-loader';
-import App from './components/App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import store from './store/'
+import { AppContainer } from 'react-hot-loader'
+import App from './components/App'
 
 const renderApp = Component => {
   ReactDOM.render(

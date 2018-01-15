@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import './index.scss';
+import React, {Component} from 'react'
+import './index.scss'
 import { filterAll, filterActive, filterCompleted } from '../../actions/'
 import constants from '../../constants/'
 import { connect } from 'react-redux'

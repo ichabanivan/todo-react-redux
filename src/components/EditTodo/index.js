@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import './index.scss';
+import React, {Component} from 'react'
+import './index.scss'
 import { updateText, removeTodo, toggleTodo, showModal } from '../../actions/'
 import { connect } from 'react-redux'
 

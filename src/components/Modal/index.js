@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import './index.scss';
+import './index.scss'
 import { hideModal } from '../../actions/'
 
 class Modal extends Component {
