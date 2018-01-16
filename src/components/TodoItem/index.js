@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { removeTodo, toggleTodo, showModal } from '../../actions/';
+import { removeTodo, toggleTodo,  } from '../../actions/todo';
+import { showModal } from '../../actions/modal';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -40,11 +42,10 @@ class TodoItem extends Component {
           <button
             onClick={ this.showModalLabel }
             className="item__label"
-          >
-          { status }
-          </button>
+          > { status } </button>
 
           <span className="item__text">{ body }</span>
+
           <i
             onClick={ this.showModalDelete }
             className="delete"
@@ -52,9 +53,7 @@ class TodoItem extends Component {
         </div>
 
         <div>
-          <span className="item__date">
-          { date }
-          </span>
+          <span className="item__date"> { date } </span>
         </div>
       </div>
     );

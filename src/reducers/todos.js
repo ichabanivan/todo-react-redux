@@ -23,7 +23,7 @@ let initialState =  [
   }
 ];
 
-export default function todos(state = initialState, action) {
+function todo(state, action) {
   switch (action.type) {
     case CONSTANTS.ADD_TODO:
 
@@ -46,9 +46,6 @@ export default function todos(state = initialState, action) {
         ]
         : state;
 
-    case CONSTANTS.REMOVE_TODO:
-      return state.filter((el, index) => index !== action.id);
-
     case CONSTANTS.UPDATE_TEXT:
       return state.map((todo, index) => {
         if (index === parseInt(action.payload.id)) {
@@ -64,11 +61,11 @@ export default function todos(state = initialState, action) {
 
     case CONSTANTS.TOGGLE_TODO:
       return state.map((todo, index) => {
-        if (index === parseInt(action.id)) {
+        if (index === parseInt(action.payload.id)) {
           let status,
             body = todo.body,
             id = index,
-            date = `${new Date(Date.now())}`;
+            date = action.payload.date;
 
           switch (todo.status) {
             case 'new': {
@@ -98,6 +95,25 @@ export default function todos(state = initialState, action) {
           return todo
         }
       });
+
+    default:
+      return state;
+  }
+}
+
+export default function todos(state = initialState, action) {
+  switch (action.type) {
+    case CONSTANTS.ADD_TODO:
+      return todo(state, action);
+
+    case CONSTANTS.REMOVE_TODO:
+      return state.filter((el, index) => index !== action.id);
+
+    case CONSTANTS.UPDATE_TEXT:
+      return todo(state, action);
+
+    case CONSTANTS.TOGGLE_TODO:
+      return todo(state, action);
 
     default:
       return state;

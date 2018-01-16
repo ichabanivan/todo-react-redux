@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import './index.scss';
-import { hideModal } from '../../actions/';
+import { hideModal } from '../../actions/modal';
 
 class Modal extends Component {
   constructor(props) {
@@ -35,13 +35,12 @@ class Modal extends Component {
               <div className="modal-footer">
                 <button
                   className="modal-action"
-                  onClick={ this.handleHide }>Disagree</button>
+                  onClick={ this.handleHide }
+                > Disagree </button>
                 <button
                   className="modal-action"
                   onClick={ modal.type === 'label' ? label : del }
-                >
-                  Agree
-                </button>
+                > Agree </button>
               </div>
             </div>
           </div>

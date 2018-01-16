@@ -1,65 +1,55 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { filterAll, filterActive, filterCompleted } from '../../actions/';
+import { filterAll, filterActive, filterCompleted } from '../../actions/filter';
 import constants from '../../constants/';
 import { connect } from 'react-redux';
-import history from '../../history';
+
+import {Link} from 'react-router-dom'
 
 class Filters extends Component {
   constructor(props) {
     super(props)
   }
 
-  filterAll = () => {
-    history.push('/');
-    this.props.filterAll();
-  };
-
-  filterActive = () => {
-    history.push('/');
-    this.props.filterActive()
-  };
-
-  filterCompleted = () => {
-    history.push('/');
-    this.props.filterCompleted()
-  };
-
   render() {
     const {
-      filter
+      filter,
+      filterAll,
+      filterActive,
+      filterCompleted
     } = this.props;
 
     return (
       <div className="filters">
-        <button
+        <Link
+          to="/all"
           className={`filter ${ filter === constants.FILTER_ALL ? 'active' : ''}`}
-          onClick={ this.filterAll }
+          onClick={ filterAll }
         >
           All
-        </button>
-        <button
+        </Link>
+        <Link
+          to="/active"
           className={`filter ${filter === constants.FILTER_ACTIVE ? 'active' : ''}`}
-          onClick={ this.filterActive }
+          onClick={ filterActive }
         >
           Active
-        </button>
-        <button
+        </Link>
+        <Link
+          to="/completed"
           className={`filter ${filter === constants.FILTER_COMPLETED ? 'active' : ''}`}
-          onClick={ this.filterCompleted }
+          onClick={ filterCompleted }
         >
           Completed
-        </button>
+        </Link>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    filter: state.filters
-  }
-};
+const mapStateToProps = (state) => ({
+  filter: state.filter
+});
 
 export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
 

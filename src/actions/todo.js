@@ -14,24 +14,6 @@ export const newText = (text) => ({
   text
 });
 
-export const showModal = (obj) => {
-  let modal = {
-    id: obj.id,
-    isVisible: true,
-    text: obj.text,
-    type: obj.type
-  };
-
-  return {
-    type: ACTIONS.SHOW_MODAL,
-    modal
-  }
-};
-
-export const hideModal = () => ({
-  type: ACTIONS.HIDE_MODAL
-});
-
 export const addTodo = (text) => ({
   type: ACTIONS.ADD_TODO,
   payload: {
@@ -48,17 +30,8 @@ export const removeTodo = (id) => ({
 
 export const toggleTodo = (id) => ({
   type: ACTIONS.TOGGLE_TODO,
-  id
-});
-
-export const filterAll = () => ({
-  type: ACTIONS.FILTER_ALL
-});
-
-export const filterActive = () => ({
-  type: ACTIONS.FILTER_ACTIVE
-});
-
-export const filterCompleted = () => ({
-  type: ACTIONS.FILTER_COMPLETED
+  payload: {
+    id,
+    date: `${new Date(Date.now())}`
+  }
 });

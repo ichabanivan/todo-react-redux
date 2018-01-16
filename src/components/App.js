@@ -1,15 +1,17 @@
-import React, {Component} from 'react'
-import '../../node_modules/normalize.css/normalize.css'
-import '../assets/css/style.scss'
-import './index.scss'
-import Input from '../components/Input/'
-import TodoList from '../components/TodoList/'
-import Filters from '../components/Filters/'
-import Modal from '../components/Modal/'
-import { hideModal, toggleTodo, removeTodo } from '../actions/'
-import {connect} from 'react-redux'
-import history from '../history'
-import {withRouter} from 'react-router-dom';
+import React, {Component} from 'react';
+import '../../node_modules/normalize.css/normalize.css';
+import '../assets/css/style.scss';
+import './index.scss';
+import Input from '../components/Input/';
+import TodoList from '../components/TodoList/';
+import Filters from '../components/Filters/';
+import Modal from '../components/Modal/';
+import { hideModal } from '../actions/modal';
+import { toggleTodo, removeTodo } from '../actions/todo';
+import { filterAll } from '../actions/filter';
+import { connect } from 'react-redux';
+import history from '../history';
+import { Route, withRouter } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +21,8 @@ class App extends Component {
   confirmDelete = () => {
     this.props.hideModal();
     this.props.removeTodo(this.props.modal.id);
-    history.push('/')
+    history.push('/all');
+    this.props.filterAll();
   };
 
   confirmChangeLabel = () => {
@@ -32,13 +35,13 @@ class App extends Component {
       <div className="todo-app">
         <h1>Todos</h1>
         <Input />
-        <TodoList />
+        <Route path="/:filter" component={TodoList} />
         <Filters />
         <Modal
-          label = { this.confirmChangeLabel }
-          del = { this.confirmDelete }
-          isVisible = { this.props.modal.isVisible }
-          text = { this.props.modal.text }
+          label={ this.confirmChangeLabel }
+          del={ this.confirmDelete }
+          isVisible={ this.props.modal.isVisible }
+          text={ this.props.modal.text }
         />
       </div>
     );
@@ -49,4 +52,4 @@ const mapStateToProps = (state) => {
   return { modal: state.modal}
 };
 
-export default withRouter(connect(mapStateToProps, {hideModal, removeTodo, toggleTodo})(App))
+export default withRouter(connect(mapStateToProps, { hideModal, removeTodo, toggleTodo, filterAll })(App))

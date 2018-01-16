@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { addTodo, newText } from '../../actions/';
+import { addTodo, newText } from '../../actions/todo';
+import { filterAll } from '../../actions/filter';
 import { connect } from 'react-redux';
 import history from '../../history';
 
@@ -34,7 +35,8 @@ class Input extends Component {
   };
 
   hideEditing = () => {
-    history.push('/')
+    history.push('/all')
+    this.props.filterAll()
   };
 
   render() {
@@ -51,4 +53,4 @@ class Input extends Component {
   }
 }
 
-export default connect(null, { addTodo, newText })(Input)
+export default connect(null, { addTodo, newText, filterAll })(Input)
