@@ -8,7 +8,6 @@ import Filters from '../components/Filters/';
 import Modal from '../components/Modal/';
 import { hideModal } from '../actions/modal';
 import { toggleTodo, removeTodo } from '../actions/todo';
-import { filterAll } from '../actions/filter';
 import { connect } from 'react-redux';
 import history from '../history';
 import { Route, withRouter } from 'react-router-dom';
@@ -52,4 +51,4 @@ const mapStateToProps = (state) => {
   return { modal: state.modal}
 };
 
-export default withRouter(connect(mapStateToProps, { hideModal, removeTodo, toggleTodo, filterAll })(App))
+export default withRouter(connect(mapStateToProps, { hideModal, removeTodo, toggleTodo })(App))
