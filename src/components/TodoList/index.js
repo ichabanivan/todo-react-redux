@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import { filterAll, filterActive, filterCompleted } from '../../actions/filter';
-import { removeTodo, toggleTodo,  } from '../../actions/todo';
-
 import { connect } from 'react-redux';
 import TodoItem from '../../components/TodoItem';
 import CONSTANTS from '../../constants/';
@@ -69,4 +66,4 @@ const mapStateToProps = (state) => {
   return { todos: filterTodos(state.todos, state.filter, state.inputText), filter: state.filter }
 };
 
-export default withRouter(connect(mapStateToProps, { removeTodo, toggleTodo, filterAll, filterActive, filterCompleted })(TodoList))
+export default withRouter(connect(mapStateToProps, null )(TodoList))

@@ -21,13 +21,13 @@ class App extends Component {
   confirmDelete = () => {
     this.props.hideModal();
     this.props.removeTodo(this.props.modal.id);
-    history.push('/all');
-    this.props.filterAll();
+    history.push(`/${history.location.pathname.split('/')[1]}`);
   };
 
   confirmChangeLabel = () => {
     this.props.toggleTodo(this.props.modal.id);
     this.props.hideModal();
+    history.push(`/${history.location.pathname.split('/')[1]}`);
   };
 
   render() {

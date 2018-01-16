@@ -4,6 +4,7 @@ import { updateText, toggleTodo } from '../../actions/todo';
 import { showModal } from '../../actions/modal';
 import { connect } from 'react-redux';
 import history from '../../history'
+
 class EditTodo extends Component {
   constructor(props) {
     super(props)
