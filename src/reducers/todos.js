@@ -23,41 +23,26 @@ let initialState =  [
   }
 ];
 
-function todo(state, action) {
+export default function todos(state = initialState, action) {
   switch (action.type) {
     case CONSTANTS.ADD_TODO:
+      return [
+        action.payload,
+        ...state
+      ];
 
-      // if empty
-      if (!action.payload.body) {
-        return state
-      }
-
-      let isUnic = true;
-
-      for (let i = 0; i < state.length; i++) {
-        if (state[i].body === action.payload.body) {
-          isUnic = false;
-        }
-      }
-
-      return isUnic ? [
-          action.payload,
-          ...state
-        ]
-        : state;
+    case CONSTANTS.REMOVE_TODO:
+      return state.filter((el, index) => index !== parseInt(action.id));
 
     case CONSTANTS.UPDATE_TEXT:
-      return state.map((todo, index) => {
-        if (index === parseInt(action.payload.id)) {
-          return {
-            ...todo,
-            body: action.payload.body,
-            date: action.payload.date
-          }
-        } else {
-          return todo
+      return state.map((todo, index) => (index === parseInt(action.payload.id)
+        ? {
+          ...todo,
+          body: action.payload.body,
+          date: action.payload.date
         }
-      });
+        : todo
+      ));
 
     case CONSTANTS.TOGGLE_TODO:
       return state.map((todo, index) => {
@@ -95,25 +80,6 @@ function todo(state, action) {
           return todo
         }
       });
-
-    default:
-      return state;
-  }
-}
-
-export default function todos(state = initialState, action) {
-  switch (action.type) {
-    case CONSTANTS.ADD_TODO:
-      return todo(state, action);
-
-    case CONSTANTS.REMOVE_TODO:
-      return state.filter((el, index) => index !== action.id);
-
-    case CONSTANTS.UPDATE_TEXT:
-      return todo(state, action);
-
-    case CONSTANTS.TOGGLE_TODO:
-      return todo(state, action);
 
     default:
       return state;

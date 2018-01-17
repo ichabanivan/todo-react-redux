@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { filterAll, filterActive, filterCompleted } from '../../actions/filter';
-import constants from '../../constants/';
 import { connect } from 'react-redux';
-
-import {Link} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class Filters extends Component {
   constructor(props) {
@@ -12,44 +9,38 @@ class Filters extends Component {
   }
 
   render() {
-    const {
-      filter,
-      filterAll,
-      filterActive,
-      filterCompleted
-    } = this.props;
 
     return (
       <div className="filters">
-        <Link
+        <NavLink
           to="/all"
-          className={`filter ${ filter === constants.FILTER_ALL ? 'active' : ''}`}
-          onClick={ filterAll }
+          className="filter"
+          activeClassName="active"
         >
           All
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/active"
-          className={`filter ${filter === constants.FILTER_ACTIVE ? 'active' : ''}`}
-          onClick={ filterActive }
+          className="filter"
+          activeClassName="active"
         >
           Active
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/completed"
-          className={`filter ${filter === constants.FILTER_COMPLETED ? 'active' : ''}`}
-          onClick={ filterCompleted }
+          className="filter"
+          activeClassName="active"
         >
           Completed
-        </Link>
+        </NavLink>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  filter: state.filter
+  router: state.router
 });
 
-export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
+export default connect(mapStateToProps, null)(Filters)
 

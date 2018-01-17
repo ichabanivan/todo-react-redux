@@ -1,69 +1,50 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './index.scss';
-import { removeTodo, toggleTodo,  } from '../../actions/todo';
-import { showModal } from '../../actions/modal';
+import { removeTodo, toggleTodo, } from '../../actions/todo';
 
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 class TodoItem extends Component {
-  constructor(props) {
-    super(props)
+  constructor (props) {
+    super(props);
   }
 
-  showModalLabel = () => {
-    this.props.showModal({
-      id: this.props.id,
-      text: 'do you want change label?',
-      type: 'label'
-    })
-  };
-
-  showModalDelete = (e) => {
-    e.preventDefault();
-
-    this.props.showModal({
-      id: this.props.id,
-      text: 'do you want delete this item?',
-      type: 'delete'
-    })
-  };
-
-  render() {
+  render () {
     const {
-      body,
-      status,
-      date
-    } = this.props.todo;
+      todo,
+      filter,
+      id
+    } = this.props;
 
     return (
       <div className="todo__item item" >
         <div className="item__top">
-          <button
-            onClick={ this.showModalLabel }
+          <Link
+            to={`/${filter}/${id}/change-label`}
             className="item__label"
-          > { status } </button>
+          > { todo.status } </Link>
 
-          <span className="item__text">{ body }</span>
+          <span className="item__text">{ todo.body }</span>
 
-          <i
-            onClick={ this.showModalDelete }
-            className="delete"
-          > X </i>
+          <div className="item__btns">
+            <Link
+              to={`/${filter}/${id}/remove-todo`}
+              className="item__delete"
+            > X </Link>
+            <Link
+              to={`/${filter}/${id}`}
+              className="item__edit"
+            > edit </Link>
+          </div>
         </div>
 
-        <div>
-          <span className="item__date"> { date } </span>
-        </div>
+          <div>
+            <span className="item__date"> { todo.date } </span>
+          </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    todos: state.todos
-  }
-};
-
-export default withRouter(connect(mapStateToProps, { removeTodo, toggleTodo, showModal })(TodoItem))
+export default connect(null, { removeTodo, toggleTodo })(TodoItem);

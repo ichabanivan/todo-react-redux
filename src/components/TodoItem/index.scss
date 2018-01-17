@@ -1,19 +1,23 @@
 .item {
 
-  padding: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
   position: relative;
+
+  display: flex;
   align-items: baseline;
-  border: 1px solid #3a3a3a;
+  flex-direction: column;
   justify-content: space-between;
+
+  margin-bottom: 20px;
+  padding: 10px;
+
+  border: 1px solid #3a3a3a;
 
   &__top {
 
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+
     width: 100%;
   }
 
@@ -25,14 +29,9 @@
   i {
 
     width: 5%;
-    text-align: center;
+
     cursor: pointer;
-  }
-
-  .delete {
-
-    font-size: 20px;
-    display: block;
+    text-align: center;
   }
 
   &__text {
@@ -42,18 +41,24 @@
 
   &__label {
 
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    color: #fff;
-    background-color: #3a3a3a;
-    border-radius: 2px;
+    font-size: 8px;
+
     margin-right: 5px;
+    padding: 5px 10px;
+
     cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    color: #fff;
+    border-radius: 2px;
+    background-color: #3a3a3a;
   }
 
   &__date {
 
     font-size: 10px;
+
     width: 20%;
   }
 }
@@ -61,14 +66,41 @@
 .todo {
   &__item {
 
-    text-decoration: none;
-    color: #000;
-    margin-bottom: 30px;
     display: flex;
+
     width: 100%;
+    margin-bottom: 30px;
+
+    text-decoration: none;
+
+    color: #000;
   }
 }
 
 button {
+
   border: none;
+}
+
+.item__edit,
+.item__delete {
+
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px;
+
+  text-decoration: none;
+
+  color: #000;
+}
+
+.item__edit {
+
+  font-style: italic;
+
+  text-decoration: underline;
 }

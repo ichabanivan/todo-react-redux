@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import TodoItem from '../../components/TodoItem';
-import CONSTANTS from '../../constants/';
-import EditTodo from '../EditTodo/';
 import './index.scss';
-
-import {
-  Route,
-  Link,
-  withRouter
-} from 'react-router-dom'
 
 class TodoList extends Component {
   constructor(props) {
@@ -22,48 +14,41 @@ class TodoList extends Component {
       filter
     } = this.props;
 
-    let url = filter === CONSTANTS.FILTER_COMPLETED
-      ? 'completed' : filter === CONSTANTS.FILTER_ACTIVE
-        ? 'active'
-        : 'all';
-
     return (
-      <div className="todo-edit">
-        <div className="todo__list">
+        <ul className="todo__list">
           {
-            todos.map((todo) => <Link to={ `/${url}/${todo.index}` } key={ todo.index } className="todo__item">
-              <TodoItem todo={ todo } id={ todo.index } />
-            </Link>)
+            todos.map((todo) => <li key={ todo.index } className="todo__item">
+              <TodoItem todo={ todo } id={ todo.index } filter={filter}/>
+            </li>)
           }
-        </div>
-        <Route path="/:filter/:id" component={EditTodo}/>
-      </div>
+        </ul>
     );
   }
 }
 
-const filterTodos = (todos, filter, inputText) => {
+const filterTodos = (todos, filter, text) => {
   switch (filter) {
-    case CONSTANTS.FILTER_ALL:
+    case 'all':
       return todos.filter((t, index) => {
         t.index = index;
-        return t.body.search(new RegExp(inputText, 'i')) !== -1
+        return t.body && t.body.indexOf(text) !== -1;
       });
-    case CONSTANTS.FILTER_COMPLETED:
+    case 'completed':
       return todos.filter((t, index) => {
         t.index = index;
-        return t.status === 'completed' && (t.body.search(new RegExp(inputText, 'i')) !== -1)
+        return t.status === 'completed' && t.body.indexOf(text) !== -1;
       });
-    case CONSTANTS.FILTER_ACTIVE:
+    case 'active':
       return todos.filter((t, index) => {
         t.index = index;
-        return t.status === 'new' && (t.body.search(new RegExp(inputText, 'i')) !== -1);
+        return t.status === 'new' && t.body.indexOf(text) !== -1;
       });
   }
 };
 
-const mapStateToProps = (state) => {
-  return { todos: filterTodos(state.todos, state.filter, state.inputText), filter: state.filter }
+const mapStateToProps = (state, ownProps) => {
+  let filter = ownProps.match.params.filter;
+  return { todos: filterTodos(state.todos, filter, state.inputText), filter }
 };
 
-export default withRouter(connect(mapStateToProps, null )(TodoList))
+export default connect(mapStateToProps, null )(TodoList)

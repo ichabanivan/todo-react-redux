@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './index.scss';
 import { updateText, toggleTodo } from '../../actions/todo';
-import { showModal } from '../../actions/modal';
 import { connect } from 'react-redux';
-import history from '../../history'
+import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux'
 
 class EditTodo extends Component {
   constructor(props) {
@@ -11,7 +11,11 @@ class EditTodo extends Component {
   }
 
   componentWillMount() {
-    const { body, date, status, id } = this.props.todo;
+    const {body, date, status, id} = this.props.todo;
+
+    if (!body) {
+      this.props.push(`/${this.props.match.params.filter}/${id}/error`)
+    }
 
     this.setState({
       body,
@@ -22,7 +26,7 @@ class EditTodo extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { body, date, status, id } = nextProps.todo;
+    const {body, date, status, id} = nextProps.todo;
 
     this.setState({
       body,
@@ -31,14 +35,6 @@ class EditTodo extends Component {
       id
     })
   }
-
-  showModalLabel = () => {
-    this.props.showModal({
-      id: this.props.match.params.id,
-      text: 'do you want change label?',
-      type: 'label'
-    })
-  };
 
   changeItem = (e) => {
     if (e.key === 'Enter') {
@@ -58,36 +54,36 @@ class EditTodo extends Component {
   };
 
   render() {
-    const { body, date, status, id } = this.state;
-
-    return (
-      <div className="todo__edit edit">
-        <h2>Edit todo</h2>
-        <p>
-          <span>id:</span>{ id }
-        </p>
-        <input
-          className="edit__field"
-          onKeyPress={ this.changeItem }
-          value={ body }
-          onChange={ this.changeInput }/>
-        <p>{ date }</p>
-        <button
-          onClick={ this.showModalLabel }
-          className="item__label"
-        >
-          { status }
-        </button>
-      </div>
-    );
+    const {body, date, status, id} = this.state;
+    if (body) {
+      return (
+        <div className="todo__edit edit">
+          <h2>Edit todo</h2>
+          <p>
+            <span>id:</span>{id}
+          </p>
+          <input
+            className="edit__field"
+            onKeyPress={this.changeItem}
+            value={body}
+            onChange={this.changeInput}/>
+          <p>{date}</p>
+          <Link
+            to={`/${this.props.match.params.filter}/${id}/change-label`}
+            className="item__label"
+          >
+            {status}
+          </Link>
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }
 
 const editTodo = (todos, id) => {
   let todo = todos.filter((el, index) => id === index)[0];
-  if (id > todos.length - 1) {
-    history.push('/all')
-  }
 
   return {
     ...todo,
@@ -101,4 +97,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps, { updateText, toggleTodo, showModal })(EditTodo)
+export default connect(mapStateToProps, { updateText, toggleTodo, push })(EditTodo)

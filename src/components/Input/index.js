@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './index.scss';
 import { addTodo, newText } from '../../actions/todo';
-import { filterAll } from '../../actions/filter';
 import { connect } from 'react-redux';
-import history from '../../history';
+
+import { push } from 'react-router-redux'
 
 class Input extends Component {
   constructor(props) {
@@ -16,13 +16,31 @@ class Input extends Component {
 
   addItem = (e) => {
     if (e.key === 'Enter') {
-      this.props.addTodo(this.state.value);
+      let isUnic = true,
+        text = e.target.value,
+        length = this.props.todos.length;
 
-      this.setState({
-        value: ''
-      }, () => {
-        this.props.newText(this.state.value)
+      // if empty
+      if (!text) {
+        this.props.push(`/all/${length+1}/error`);
+        return false
+      }
+
+      this.props.todos.map(el => {
+        if (el.body === e.target.value) {
+          isUnic = false;
+        }
       });
+      if (isUnic) {
+        this.setState({
+          value: ''
+        }, () => {
+          this.props.newText(this.state.value)
+        });
+        this.props.addTodo(text);
+      } else {
+        this.props.push(`/all/${length+1}/error`)
+      }
     }
   };
 
@@ -35,8 +53,7 @@ class Input extends Component {
   };
 
   hideEditing = () => {
-    history.push('/all')
-    this.props.filterAll()
+    this.props.push('/')
   };
 
   render() {
@@ -53,4 +70,10 @@ class Input extends Component {
   }
 }
 
-export default connect(null, { addTodo, newText, filterAll })(Input)
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos
+  }
+};
+
+export default connect(mapStateToProps, { addTodo, newText, push })(Input)

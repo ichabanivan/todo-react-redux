@@ -1,10 +1,10 @@
 .todo__list {
 
+  width: 100%;
   padding: 0;
-  flex: 1 1 auto;
 }
 
-.todo-edit {
+.todo__item {
 
   display: flex;
   justify-content: space-between;
