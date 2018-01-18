@@ -12,7 +12,7 @@ import ModalChangeLabel from '../components/ModalChangeLabel/';
 import { Switch, Route } from 'react-router-dom'
 
 const Todos = () => (
-  <div>
+  <div className="todo__all">
     <Input />
     <TodoList />
     <Filters />
@@ -30,10 +30,8 @@ export default class App extends Component {
         <h1>Todos</h1>
 
         <div className="todo">
-          <div className="todo__list">
-            <Route path="/" component={ Todos } />
-          </div>
-          <Route className="todo__edit" path="/:id/" component={ EditTodo } />
+          <Route path="/" component={ Todos } />
+          <Route path="/:id/" component={ EditTodo } />
         </div>
 
         <Switch>
