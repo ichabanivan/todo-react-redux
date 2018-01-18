@@ -34,52 +34,12 @@ export default function todos(state = initialState, action) {
     case CONSTANTS.REMOVE_TODO:
       return state.filter((el, index) => index !== parseInt(action.id));
 
-    case CONSTANTS.UPDATE_TEXT:
-      return state.map((todo, index) => (index === parseInt(action.payload.id)
-        ? {
-          ...todo,
-          body: action.payload.body,
-          date: action.payload.date
-        }
+    case CONSTANTS.UPDATE_TODO:
+      return state.map((todo, index) => (
+        index === parseInt(action.payload.id)
+        ? Object.assign(todo, action.payload)
         : todo
       ));
-
-    case CONSTANTS.TOGGLE_TODO:
-      return state.map((todo, index) => {
-        if (index === parseInt(action.payload.id)) {
-          let status,
-            body = todo.body,
-            id = index,
-            date = action.payload.date;
-
-          switch (todo.status) {
-            case 'new': {
-              status = 'review';
-              break;
-            }
-            case 'review': {
-              status = 'completed';
-              break;
-            }
-            case 'completed': {
-              status = 'new';
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-
-          return {
-            body,
-            id,
-            status,
-            date
-          }
-        } else {
-          return todo
-        }
-      });
 
     default:
       return state;

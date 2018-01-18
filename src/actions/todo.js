@@ -1,7 +1,7 @@
 import ACTIONS from '../constants/';
 
 export const updateText = (obj) => ({
-  type: ACTIONS.UPDATE_TEXT,
+  type: ACTIONS.UPDATE_TODO,
   payload: {
     body: obj.body,
     id: obj.id,
@@ -28,10 +28,37 @@ export const removeTodo = (id) => ({
   id
 });
 
-export const toggleTodo = (id) => ({
-  type: ACTIONS.TOGGLE_TODO,
-  payload: {
-    id,
-    date: `${new Date(Date.now())}`
+export const toggleTodo = (todo) => {
+  let status,
+    body = todo.body,
+    id = todo.index,
+    date = `${new Date(Date.now())}`;
+
+  switch (todo.status) {
+    case 'new': {
+      status = 'review';
+      break;
+    }
+    case 'review': {
+      status = 'completed';
+      break;
+    }
+    case 'completed': {
+      status = 'new';
+      break;
+    }
+    default: {
+      break;
+    }
   }
-});
+
+  return {
+    type: ACTIONS.UPDATE_TODO,
+    payload: {
+      body,
+      id,
+      status,
+      date
+    }
+  };
+};

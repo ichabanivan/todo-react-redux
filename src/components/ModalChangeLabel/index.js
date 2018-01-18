@@ -18,7 +18,8 @@ class ModalChangeLabel extends Component {
 
   agree = () => {
     this.handleHide();
-    this.props.toggleTodo(this.props.match.params.id);
+
+    this.props.toggleTodo(this.props.todo);
   };
 
   disagree = () => {
@@ -50,5 +51,11 @@ class ModalChangeLabel extends Component {
   }
 }
 
-export default connect(null, { push, toggleTodo })(ModalChangeLabel)
+const mapStateToProps = (state, ownProps) => {
+  let id = ownProps.match.params.id;
+  let todo = state.todos.filter((el, index) => index === parseInt(id))[0];
+  return { todo }
+};
+
+export default connect(mapStateToProps, { push, toggleTodo })(ModalChangeLabel)
 

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './index.scss';
-import { removeTodo, toggleTodo, } from '../../actions/todo';
-
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 
-class TodoItem extends Component {
+export default class TodoItem extends Component {
   constructor (props) {
     super(props);
   }
@@ -13,15 +10,14 @@ class TodoItem extends Component {
   render () {
     const {
       todo,
-      filter,
-      id
+      filter
     } = this.props;
 
     return (
       <div className="todo__item item" >
         <div className="item__top">
           <Link
-            to={`/${filter}/${id}/change-label`}
+            to={`/${filter}/${todo.index}/change-label`}
             className="item__label"
           > { todo.status } </Link>
 
@@ -29,22 +25,21 @@ class TodoItem extends Component {
 
           <div className="item__btns">
             <Link
-              to={`/${filter}/${id}/remove-todo`}
+              to={`/${filter}/${todo.index}/remove-todo`}
               className="item__delete"
             > X </Link>
             <Link
-              to={`/${filter}/${id}`}
+              to={`/${filter}/${todo.index}`}
               className="item__edit"
             > edit </Link>
           </div>
         </div>
 
-          <div>
-            <span className="item__date"> { todo.date } </span>
-          </div>
+        <div>
+          <span className="item__date"> { todo.date } </span>
+        </div>
       </div>
     );
   }
 }
 
-export default connect(null, { removeTodo, toggleTodo })(TodoItem);

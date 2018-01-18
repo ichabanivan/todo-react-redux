@@ -22,7 +22,7 @@ class Input extends Component {
 
       // if empty
       if (!text) {
-        this.props.push(`/all/${length+1}/error`);
+        this.props.push(`/all/${ length + 1 }/error`);
         return false
       }
 
@@ -31,6 +31,7 @@ class Input extends Component {
           isUnic = false;
         }
       });
+
       if (isUnic) {
         this.setState({
           value: ''
@@ -39,7 +40,7 @@ class Input extends Component {
         });
         this.props.addTodo(text);
       } else {
-        this.props.push(`/all/${length+1}/error`)
+        this.props.push(`/all/${ length + 1 }/error`)
       }
     }
   };

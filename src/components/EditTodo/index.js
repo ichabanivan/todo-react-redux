@@ -11,7 +11,7 @@ class EditTodo extends Component {
   }
 
   componentWillMount() {
-    const {body, date, status, id} = this.props.todo;
+    const { body, date, status, id } = this.props.todo;
 
     if (!body) {
       this.props.push(`/${this.props.match.params.filter}/${id}/error`)
@@ -26,7 +26,7 @@ class EditTodo extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {body, date, status, id} = nextProps.todo;
+    const { body, date, status, id } = nextProps.todo;
 
     this.setState({
       body,
@@ -54,7 +54,8 @@ class EditTodo extends Component {
   };
 
   render() {
-    const {body, date, status, id} = this.state;
+    const { body, date, status, id } = this.state;
+
     if (body) {
       return (
         <div className="todo__edit edit">
@@ -64,15 +65,15 @@ class EditTodo extends Component {
           </p>
           <input
             className="edit__field"
-            onKeyPress={this.changeItem}
-            value={body}
-            onChange={this.changeInput}/>
-          <p>{date}</p>
+            onKeyPress={ this.changeItem }
+            value={ body }
+            onChange={ this.changeInput }/>
+          <p>{ date }</p>
           <Link
-            to={`/${this.props.match.params.filter}/${id}/change-label`}
+            to={`/${ this.props.match.params.filter }/${ id }/change-label`}
             className="item__label"
           >
-            {status}
+            { status }
           </Link>
         </div>
       )

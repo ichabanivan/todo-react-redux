@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import TodoItem from '../../components/TodoItem';
+import TodoItem from '../TodoItem/';
 import './index.scss';
 
 class TodoList extends Component {
@@ -15,13 +15,11 @@ class TodoList extends Component {
     } = this.props;
 
     return (
-        <ul className="todo__list">
-          {
-            todos.map((todo) => <li key={ todo.index } className="todo__item">
-              <TodoItem todo={ todo } id={ todo.index } filter={filter}/>
-            </li>)
-          }
-        </ul>
+      <div className="todo__list">
+        {
+          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } filter={ filter } />)
+        }
+      </div>
     );
   }
 }
