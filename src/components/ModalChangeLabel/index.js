@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import { changeStatus } from '../../actions/todo';
 
 class ModalChangeLabel extends Component {
@@ -13,9 +13,7 @@ class ModalChangeLabel extends Component {
   };
 
   handleHide = () => {
-    const id = this.props.match.params.id;
-
-    this.props.push(`/${id}`);
+    this.props.goBack();
   };
 
   stopPropagation = (e) => {
@@ -82,5 +80,5 @@ const mapStateToProps = (state, ownProps) => {
   return { todo }
 };
 
-export default connect(mapStateToProps, { push, changeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { goBack, changeStatus })(ModalChangeLabel)
 

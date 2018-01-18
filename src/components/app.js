@@ -19,7 +19,6 @@ const Todos = () => (
   </div>
 );
 
-
 export default class App extends Component {
   constructor(props) {
     super(props)

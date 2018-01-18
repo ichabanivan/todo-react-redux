@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { removeTodo } from '../../actions/todo';
-import { push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import { newText } from '../../actions/todo';
 
 class ModalRemoveTodo extends Component {
@@ -10,7 +10,7 @@ class ModalRemoveTodo extends Component {
   }
 
   handleHide = () => {
-    this.props.push(`/`);
+    this.props.goBack();
   };
 
   stopPropagation = (e) => {
@@ -56,5 +56,5 @@ class ModalRemoveTodo extends Component {
 
 const mapStateToProps = (state, ownProps) => ({filter: ownProps.match.params.filter});
 
-export default connect(mapStateToProps, { push, removeTodo, newText })(ModalRemoveTodo)
+export default connect(mapStateToProps, { goBack, removeTodo, newText })(ModalRemoveTodo)
 

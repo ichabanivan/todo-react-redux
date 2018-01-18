@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 
 class ModalError extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class ModalError extends Component {
   }
 
   handleHide = () => {
-    this.props.push(`/`);
+    this.props.goBack();
   };
 
   stopPropagation = (e) => {
@@ -42,4 +42,4 @@ class ModalError extends Component {
 
 const mapStateToProps = (state, ownProps) => ({ filter: ownProps.match.params.filter });
 
-export default connect(mapStateToProps, { push })(ModalError);
+export default connect(mapStateToProps, { goBack })(ModalError);
