@@ -10,10 +10,6 @@ class Input extends Component {
     super(props)
   }
 
-  state = {
-    value: ''
-  };
-
   addItem = (e) => {
     if (e.key === 'Enter') {
       let isUnic = true,
@@ -33,24 +29,16 @@ class Input extends Component {
       });
 
       if (isUnic) {
-        this.setState({
-          value: ''
-        }, () => {
-          this.props.newText(this.state.value)
-        });
         this.props.addTodo(text);
+        this.props.newText('');
       } else {
-        this.props.push(`/all/${ length + 1 }/error`)
+        this.props.push(`/${ length + 1 }/error`)
       }
     }
   };
 
   changeValue = (e) => {
-    this.setState({
-      value: e.target.value
-    }, () => {
-      this.props.newText(this.state.value)
-    });
+    this.props.newText(e.target.value)
   };
 
   hideEditing = () => {
@@ -64,7 +52,7 @@ class Input extends Component {
         placeholder="What needs to be done?"
         onChange={ this.changeValue }
         onKeyPress={ this.addItem }
-        value={ this.state.value }
+        value={ this.props.text }
         onFocus={ this.hideEditing }
       />
     );
@@ -73,7 +61,8 @@ class Input extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    text: state.inputText
   }
 };
 

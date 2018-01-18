@@ -9,15 +9,14 @@ export default class TodoItem extends Component {
 
   render () {
     const {
-      todo,
-      filter
+      todo
     } = this.props;
 
     return (
       <div className="todo__item item" >
         <div className="item__top">
           <Link
-            to={`/${filter}/${todo.index}/change-label`}
+            to={`/${todo.index}/change-label`}
             className="item__label"
           > { todo.status } </Link>
 
@@ -25,11 +24,11 @@ export default class TodoItem extends Component {
 
           <div className="item__btns">
             <Link
-              to={`/${filter}/${todo.index}/remove-todo`}
+              to={`/${todo.index}/remove-todo`}
               className="item__delete"
             > X </Link>
             <Link
-              to={`/${filter}/${todo.index}`}
+              to={`/${todo.index}`}
               className="item__edit"
             > edit </Link>
           </div>

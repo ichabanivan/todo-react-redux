@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom'
+import { filterActive, filterCompleted, filterAll } from '../../actions/filter';
+import CONSTANTS from '../../constants/'
 
 class Filters extends Component {
   constructor(props) {
@@ -9,38 +10,43 @@ class Filters extends Component {
   }
 
   render() {
+    const {
+      filter,
+      filterAll,
+      filterActive,
+      filterCompleted
+    } = this.props;
 
     return (
       <div className="filters">
-        <NavLink
-          to="/all"
-          className="filter"
-          activeClassName="active"
+        <button
+          className={`filter ${filter === CONSTANTS.FILTER_ALL ? 'active' : ''}`}
+          onClick={ filterAll }
         >
           All
-        </NavLink>
-        <NavLink
-          to="/active"
-          className="filter"
-          activeClassName="active"
+        </button>
+        <button
+          className={`filter ${filter === CONSTANTS.FILTER_ACTIVE ? 'active' : ''}`}
+          onClick={ filterActive }
         >
           Active
-        </NavLink>
-        <NavLink
-          to="/completed"
-          className="filter"
-          activeClassName="active"
+        </button>
+        <button
+          className={`filter ${filter === CONSTANTS.FILTER_COMPLETED ? 'active' : ''}`}
+          onClick={ filterCompleted }
         >
           Completed
-        </NavLink>
+        </button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  router: state.router
-});
+const mapStateToProps = (state) => {
+  return {
+    filter: state.filter
+  }
+};
 
-export default connect(mapStateToProps, null)(Filters)
+export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
 

@@ -73,10 +73,17 @@
     h4 {
 
       margin: 0;
-      padding: 40px;
+      padding: 20px;
 
       text-align: center;
     }
+  }
+
+  select {
+    display: block;
+    padding: 2px 5px;
+    font-size: 14px;
+    margin: auto;
   }
 
   &-footer {
@@ -97,6 +104,10 @@
       color: #fff;
       border: 1px solid #eee;
       background-color: #3a3a3a;
+
+      &[disabled] {
+        opacity: 0.3;
+      }
 
       &:hover {
 

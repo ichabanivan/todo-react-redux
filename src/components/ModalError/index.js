@@ -8,7 +8,7 @@ class ModalError extends Component {
   }
 
   handleHide = () => {
-    this.props.push(`/${this.props.filter}`);
+    this.props.push(`/`);
   };
 
   stopPropagation = (e) => {
@@ -40,6 +40,6 @@ class ModalError extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({filter: ownProps.match.params.filter});
+const mapStateToProps = (state, ownProps) => ({ filter: ownProps.match.params.filter });
 
 export default connect(mapStateToProps, { push })(ModalError);

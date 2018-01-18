@@ -1,4 +1,6 @@
 import ACTIONS from '../constants/';
+// import { push } from 'react-router-redux'
+// import store from '../store'
 
 export const updateText = (obj) => ({
   type: ACTIONS.UPDATE_TODO,
@@ -23,41 +25,22 @@ export const addTodo = (text) => ({
   }
 });
 
-export const removeTodo = (id) => ({
-  type: ACTIONS.REMOVE_TODO,
-  id
-});
+export const removeTodo = (id) => {
+  // store.dispatch(push('/'));
 
-export const toggleTodo = (todo) => {
-  let status,
-    body = todo.body,
-    id = todo.index,
-    date = `${new Date(Date.now())}`;
+  return {
+    type: ACTIONS.REMOVE_TODO,
+    id
+  };
+};
 
-  switch (todo.status) {
-    case 'new': {
-      status = 'review';
-      break;
-    }
-    case 'review': {
-      status = 'completed';
-      break;
-    }
-    case 'completed': {
-      status = 'new';
-      break;
-    }
-    default: {
-      break;
-    }
-  }
+export const changeStatus = (todo) => {
+  let date = `${new Date(Date.now())}`;
 
   return {
     type: ACTIONS.UPDATE_TODO,
     payload: {
-      body,
-      id,
-      status,
+      ...todo,
       date
     }
   };

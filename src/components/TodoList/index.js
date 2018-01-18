@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import TodoItem from '../TodoItem/';
 import './index.scss';
+import CONSTANTS from '../../constants'
 
 class TodoList extends Component {
   constructor(props) {
@@ -10,14 +11,13 @@ class TodoList extends Component {
 
   render() {
     const {
-      todos,
-      filter
+      todos
     } = this.props;
 
     return (
       <div className="todo__list">
         {
-          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } filter={ filter } />)
+          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } />)
         }
       </div>
     );
@@ -26,27 +26,26 @@ class TodoList extends Component {
 
 const filterTodos = (todos, filter, text) => {
   switch (filter) {
-    case 'all':
+    case CONSTANTS.FILTER_ALL:
       return todos.filter((t, index) => {
         t.index = index;
         return t.body && t.body.indexOf(text) !== -1;
       });
-    case 'completed':
+    case CONSTANTS.FILTER_COMPLETED:
       return todos.filter((t, index) => {
         t.index = index;
         return t.status === 'completed' && t.body.indexOf(text) !== -1;
       });
-    case 'active':
+    case CONSTANTS.FILTER_ACTIVE:
       return todos.filter((t, index) => {
         t.index = index;
-        return t.status === 'new' && t.body.indexOf(text) !== -1;
+        return (t.status === 'new' || t.status === 'in progress') && t.body.indexOf(text) !== -1;
       });
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
-  let filter = ownProps.match.params.filter;
-  return { todos: filterTodos(state.todos, filter, state.inputText), filter }
+const mapStateToProps = (state) => {
+  return { todos: filterTodos(state.todos, state.filter, state.inputText) }
 };
 
 export default connect(mapStateToProps, null )(TodoList)

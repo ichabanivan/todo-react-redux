@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './index.scss';
-import { updateText, toggleTodo } from '../../actions/todo';
+import { updateText, changeStatus } from '../../actions/todo';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux'
@@ -10,34 +10,9 @@ class EditTodo extends Component {
     super(props)
   }
 
-  componentWillMount() {
-    const { body, date, status, id } = this.props.todo;
-
-    if (!body) {
-      this.props.push(`/${this.props.match.params.filter}/${id}/error`)
-    }
-
-    this.setState({
-      body,
-      date,
-      status,
-      id
-    })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { body, date, status, id } = nextProps.todo;
-
-    this.setState({
-      body,
-      date,
-      status,
-      id
-    })
-  }
-
   changeItem = (e) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       let obj = {
         id: this.props.match.params.id,
         body: e.target.value
@@ -47,18 +22,17 @@ class EditTodo extends Component {
     }
   };
 
-  changeInput = (e) => {
-    this.setState({
-      body: e.target.value
-    })
-  };
-
   render() {
-    const { body, date, status, id } = this.state;
+    const {
+      body,
+      date,
+      status,
+      id
+    } = this.props.todo;
 
     if (body) {
       return (
-        <div className="todo__edit edit">
+        <form className="todo__edit edit">
           <h2>Edit todo</h2>
           <p>
             <span>id:</span>{id}
@@ -66,16 +40,16 @@ class EditTodo extends Component {
           <input
             className="edit__field"
             onKeyPress={ this.changeItem }
-            value={ body }
-            onChange={ this.changeInput }/>
+            defaultValue={ body }
+          />
           <p>{ date }</p>
           <Link
-            to={`/${ this.props.match.params.filter }/${ id }/change-label`}
+            to={`/${ id }/change-label`}
             className="item__label"
           >
             { status }
           </Link>
-        </div>
+        </form>
       )
     } else {
       return null
@@ -98,4 +72,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps, { updateText, toggleTodo, push })(EditTodo)
+export default connect(mapStateToProps, { updateText, toggleTodo: changeStatus, push })(EditTodo)

@@ -9,7 +9,16 @@ import Filters from '../components/Filters/';
 import ModalError from '../components/ModalError/';
 import ModalRemoveTodo from '../components/ModalRemoveTodo/';
 import ModalChangeLabel from '../components/ModalChangeLabel/';
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
+
+const Todos = () => (
+  <div>
+    <Input />
+    <TodoList />
+    <Filters />
+  </div>
+);
+
 
 export default class App extends Component {
   constructor(props) {
@@ -23,21 +32,19 @@ export default class App extends Component {
 
         <div className="todo">
           <div className="todo__list">
-            <Route exact path="/" render={ () => (<Redirect to="/all" />) } />
-            <Route path="/" component={ Input } />
-            <Route path="/:filter" component={ TodoList } />
+            <Route path="/" component={ Todos } />
           </div>
-          <Route className="todo__edit" path="/:filter/:id/" component={ EditTodo } />
+          <Route className="todo__edit" path="/:id/" component={ EditTodo } />
         </div>
 
         <Switch>
-          <Route path="/:filter/:id/error" component={ ModalError } />
-          <Route path="/:filter/:id/remove-todo" component={ ModalRemoveTodo } />
-          <Route path="/:filter/:id/change-label" component={ ModalChangeLabel } />
+          <Route path="/:id/error" component={ ModalError } />
+          <Route path="/:id/remove-todo" component={ ModalRemoveTodo } />
+          <Route path="/:id/change-label" component={ ModalChangeLabel } />
         </Switch>
 
-        <Filters />
       </div>
     );
   }
 }
+

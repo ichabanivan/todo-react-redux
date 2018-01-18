@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { removeTodo } from '../../actions/todo';
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
 import { newText } from '../../actions/todo';
 
 class ModalRemoveTodo extends Component {
@@ -10,17 +10,19 @@ class ModalRemoveTodo extends Component {
   }
 
   handleHide = () => {
-    this.props.push(`/${this.props.match.params.filter}/${this.props.match.params.id}`)
+    this.props.push(`/`);
   };
 
   stopPropagation = (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
   };
 
   agree = () => {
-    this.props.removeTodo(this.props.match.params.id)
-    this.props.push(`/${this.props.filter}`)
-    this.props.newText('')
+    const id = this.props.match.params.id;
+
+    this.props.removeTodo(id);
+    this.props.newText('');
+    this.handleHide();
   };
 
   disagree = () => {
