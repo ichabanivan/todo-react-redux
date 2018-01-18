@@ -1,6 +1,4 @@
 import ACTIONS from '../constants/';
-// import { push } from 'react-router-redux'
-// import store from '../store'
 
 export const updateText = (obj) => ({
   type: ACTIONS.UPDATE_TODO,
@@ -26,8 +24,6 @@ export const addTodo = (text) => ({
 });
 
 export const removeTodo = (id) => {
-  // store.dispatch(push('/'));
-
   return {
     type: ACTIONS.REMOVE_TODO,
     id
