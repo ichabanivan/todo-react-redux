@@ -72,4 +72,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps, { updateText, toggleTodo: changeStatus, push })(EditTodo)
+export default connect(mapStateToProps, { updateText, changeStatus, push })(EditTodo)
