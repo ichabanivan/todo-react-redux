@@ -22,6 +22,30 @@ class EditTodo extends Component {
     }
   };
 
+  state = {
+    body: ''
+  }
+
+  componentDidMount() {
+    this.setState({
+      body: this.props.todo.body
+    })
+  }
+
+  changeInput = (e) => {
+    this.setState({
+      body: e.target.value
+    })
+  };
+
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      body: nextProps.todo.body
+    })
+  }
+
+
   render() {
     const {
       body,
@@ -38,7 +62,8 @@ class EditTodo extends Component {
           <input
             className="edit__field"
             onKeyPress={ this.changeItem }
-            defaultValue={ body }
+            value={ this.state.body }
+            onChange={ this.changeInput }
           />
           <p>{ date }</p>
           <Link
