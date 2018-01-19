@@ -8,7 +8,7 @@ import TodoList from '../components/TodoList/';
 import Filters from '../components/Filters/';
 import ModalError from '../components/ModalError/';
 import ModalRemoveTodo from '../components/ModalRemoveTodo/';
-import ModalChangeLabel from '../components/ModalChangeLabel/';
+import ModalChangeStatus from '../components/ModalChangeStatus/';
 import { Switch, Route } from 'react-router-dom';
 
 const Todos = () => (
@@ -34,11 +34,9 @@ export default class App extends Component {
           <Route path="/:id/" component={ EditTodo } />
         </div>
 
-        <Switch>
-          <Route path="/:id/error" component={ ModalError } />
-          <Route path="/:id/remove-todo" component={ ModalRemoveTodo } />
-          <Route path="/:id/change-label" component={ ModalChangeLabel } />
-        </Switch>
+        <Route path="/:id/error" component={ ModalError } />
+        <Route path="/:id/remove-todo" component={ ModalRemoveTodo } />
+        <Route path="/:id/change-label" component={ ModalChangeStatus } />
 
       </div>
     );

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
-import { filterActive, filterCompleted, filterAll } from '../../actions/filter';
+import { setFilter } from '../../actions/filter';
 import CONSTANTS from '../../constants/';
 
 class Filters extends Component {
@@ -12,28 +12,26 @@ class Filters extends Component {
   render() {
     const {
       filter,
-      filterAll,
-      filterActive,
-      filterCompleted
+      setFilter
     } = this.props;
 
     return (
       <div className="filters">
         <button
           className={`filter ${filter === CONSTANTS.FILTER_ALL ? 'active' : ''}`}
-          onClick={ filterAll }
+          onClick={ () => setFilter(CONSTANTS.FILTER_ALL) }
         >
           All
         </button>
         <button
           className={`filter ${filter === CONSTANTS.FILTER_ACTIVE ? 'active' : ''}`}
-          onClick={ filterActive }
+          onClick={ () => setFilter(CONSTANTS.FILTER_ACTIVE) }
         >
           Active
         </button>
         <button
           className={`filter ${filter === CONSTANTS.FILTER_COMPLETED ? 'active' : ''}`}
-          onClick={ filterCompleted }
+          onClick={ () => setFilter(CONSTANTS.FILTER_COMPLETED) }
         >
           Completed
         </button>
@@ -48,4 +46,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
+export default connect(mapStateToProps, { setFilter })(Filters)
