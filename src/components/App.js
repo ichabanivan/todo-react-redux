@@ -9,7 +9,7 @@ import Filters from '../components/Filters/';
 import ModalError from '../components/ModalError/';
 import ModalRemoveTodo from '../components/ModalRemoveTodo/';
 import ModalChangeStatus from '../components/ModalChangeStatus/';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 const Todos = () => (
   <div className="todo__all">
