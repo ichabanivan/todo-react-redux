@@ -1,16 +1,12 @@
-.todo-app {
-
-  width: 90%;
-  margin: auto;
-}
-
 .todo {
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
-  width: 100%;
+  width: 90%;
+  margin: auto;
+
 
   @media (width <= 992px) {
     flex-wrap: wrap-reverse;

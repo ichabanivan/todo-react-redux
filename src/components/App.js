@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 
 const Todos = () => (
   <div className="todo__all">
+    <h1>Todos</h1>
     <Input />
     <TodoList />
     <Filters />
@@ -26,13 +27,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="todo-app">
-        <h1>Todos</h1>
+      <div className="todo">
 
-        <div className="todo">
-          <Route path="/" component={ Todos } />
-          <Route path="/:id/" component={ EditTodo } />
-        </div>
+        <Route path="/" component={ Todos } />
+        <Route path="/:id/" component={ EditTodo } />
 
         <Route path="/:id/error" component={ ModalError } />
         <Route path="/:id/remove-todo" component={ ModalRemoveTodo } />
