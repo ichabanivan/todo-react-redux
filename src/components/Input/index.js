@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import './index.scss';
-import { addTodo, newText } from '../../actions/todo';
 import { connect } from 'react-redux';
-
 import { push } from 'react-router-redux'
+
+import { addTodo, newText } from '../../actions/todo';
+
+import './index.scss';
 
 class Input extends Component {
   constructor(props) {

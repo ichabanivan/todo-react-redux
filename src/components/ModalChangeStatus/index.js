@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
+
+import CONSTANTS from '../../constants/'
 import { changeStatus } from '../../actions/todo';
 
 class ModalChangeLabel extends Component {
@@ -20,14 +22,16 @@ class ModalChangeLabel extends Component {
     e.stopPropagation();
   };
 
-  agree = () => {
+  agree = (e) => {
+    e.preventDefault();
     const todo = this.props.todo;
     todo.status = this.state.label;
     this.props.changeStatus(todo);
     this.handleHide();
   };
 
-  disagree = () => {
+  disagree = (e) => {
+    e.preventDefault();
     this.handleHide();
   };
 
@@ -41,43 +45,50 @@ class ModalChangeLabel extends Component {
     const { status } = this.props.todo;
     const { label } = this.state;
 
-    return (
-      <div>
-        <div className="modal-overlay" onClick={ this.handleHide }>
-          <div className="modal" onClick={ this.stopPropagation }>
-            <div className="modal-content">
-              <h4> Do you want change label? </h4>
+    if (this.props.isVisible) {
+      return (
+        <div>
+          <div className="modal-overlay" onClick={ this.handleHide }>
+            <form className="modal" onClick={ this.stopPropagation }>
+              <div className="modal-content">
+                <h4> Do you want change label? </h4>
 
-              <select defaultValue={ status } onChange={ this.changeStatus }>
-                <option value="new">new</option>
-                <option value="in progress">in progress</option>
-                <option value="review">review</option>
-                <option value="completed">completed</option>
-              </select>
-            </div>
-            <div className="modal-footer">
-              <button
-                className="modal-action"
-                onClick={ this.disagree }
-              > Disagree </button>
+                <select defaultValue={ status } onChange={ this.changeStatus }>
+                  <option value="new">new</option>
+                  <option value="in progress">in progress</option>
+                  <option value="review">review</option>
+                  <option value="completed">completed</option>
+                </select>
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="modal-action"
+                  onClick={ this.disagree }
+                > Disagree </button>
 
-              <button
-                className="modal-action"
-                onClick={ this.agree }
-                disabled={ label === status }
-              > Agree </button>
-            </div>
+                <button
+                  className="modal-action"
+                  onClick={ this.agree }
+                  disabled={ label === status }
+                > Agree </button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null
+    }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let id = ownProps.match.params.id;
+  let id = ownProps.id || 0;
   let todo = state.todos.filter((el, index) => index === parseInt(id))[0];
-  return { todo }
+  return {
+    todo,
+    isVisible: state.modals[CONSTANTS.MODAL_STATUS].isVisible
+  }
 };
 
 export default connect(mapStateToProps, { goBack, changeStatus })(ModalChangeLabel)

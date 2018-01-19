@@ -14,14 +14,16 @@ export const newText = (text) => ({
   text
 });
 
-export const addTodo = (text) => ({
-  type: ACTIONS.ADD_TODO,
-  payload: {
-    date: `${new Date(Date.now())}`,
-    body: text,
-    status: 'new'
+export const addTodo = (text) => {
+  return {
+    type: ACTIONS.ADD_TODO,
+    payload: {
+      date: `${new Date(Date.now())}`,
+      body: text,
+      status: 'new'
+    }
   }
-});
+}
 
 export const removeTodo = (id) => {
   return {

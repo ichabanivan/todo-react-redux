@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import TodoItem from '../TodoItem/';
-import './index.scss';
+
 import CONSTANTS from '../../constants';
+import TodoItem from '../TodoItem/';
+
+import './index.scss';
 
 class TodoList extends Component {
   constructor(props) {
@@ -45,7 +47,9 @@ const filterTodos = (todos, filter, text) => {
 };
 
 const mapStateToProps = (state) => {
-  return { todos: filterTodos(state.todos, state.filter, state.inputText) }
+  return {
+    todos: filterTodos(state.todos, state.filter, state.inputText)
+  }
 };
 
 export default connect(mapStateToProps, null )(TodoList)

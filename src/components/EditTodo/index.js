@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import './index.scss';
-import { updateText, changeStatus } from '../../actions/todo';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux'
+
+import { updateText, changeStatus } from '../../actions/todo';
+
+import './index.scss';
 
 class EditTodo extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class EditTodo extends Component {
 
   state = {
     body: ''
-  }
+  };
 
   componentDidMount() {
     this.setState({
@@ -45,6 +46,9 @@ class EditTodo extends Component {
     })
   }
 
+  pushLink = (url) => {
+    this.props.push(url)
+  };
 
   render() {
     const {
@@ -66,19 +70,26 @@ class EditTodo extends Component {
             onChange={ this.changeInput }
           />
           <p>{ date }</p>
-          <Link
-            to={`/${ id }/change-label`}
+          <button
             className="item__label"
+            onClick={ (e) => {
+              e.preventDefault();
+              this.pushLink(`/${ id }/change-label`)
+            }}
           >
             { status }
-          </Link>
+          </button>
 
-          <Link
-            to="/"
+          <button
+            onClick={ (e) => {
+              e.preventDefault();
+              this.pushLink('/')
+            }}
+
             className="edit__close"
           >
             X
-          </Link>
+          </button>
         </form>
       )
     } else {

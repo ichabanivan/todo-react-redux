@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import './index.scss';
-import { Link } from 'react-router-dom';
+import {push} from 'react-router-redux'
+import {connect} from 'react-redux'
 
-export default class TodoItem extends Component {
+import './index.scss';
+
+class TodoItem extends Component {
   constructor (props) {
     super(props);
   }
+
+  push = (url) => {
+    this.props.push(url)
+  };
 
   render () {
     const {
@@ -15,22 +21,22 @@ export default class TodoItem extends Component {
     return (
       <div className="todo__item item" >
         <div className="item__top">
-          <Link
-            to={`/${todo.index}/change-label`}
+          <button
             className="item__label"
-          > { todo.status } </Link>
+            onClick={ () => this.push(`/${todo.index}/change-label`)}
+          > { todo.status } </button>
 
           <span className="item__text">{ todo.body }</span>
 
           <div className="item__btns">
-            <Link
-              to={`/${todo.index}/remove-todo`}
+            <button
               className="item__delete"
-            > X </Link>
-            <Link
-              to={`/${todo.index}`}
+              onClick={ () => this.push(`/${todo.index}/remove-todo`)}
+            > X </button>
+            <button
               className="item__edit"
-            > edit </Link>
+              onClick={ () => this.push(`/${todo.index}`)}
+            > edit </button>
           </div>
         </div>
 
@@ -41,3 +47,5 @@ export default class TodoItem extends Component {
     );
   }
 }
+
+export default connect(null, {push})(TodoItem)

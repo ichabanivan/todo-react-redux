@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import './index.scss';
 import { connect } from 'react-redux';
-import { setFilter } from '../../actions/filter';
+
 import CONSTANTS from '../../constants/';
+import { setFilter } from '../../actions/filter';
+
+import './index.scss';
 
 class Filters extends Component {
   constructor(props) {
