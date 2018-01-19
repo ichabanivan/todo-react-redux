@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default class TodoItem extends Component {
   constructor (props) {
@@ -41,4 +41,3 @@ export default class TodoItem extends Component {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 .todo-app {
 
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
 
@@ -12,14 +12,28 @@
 
   width: 100%;
 
+  @media (width <= 992px) {
+    flex-wrap: wrap-reverse;
+  }
+
   &__all {
 
     width: 48%;
+
+    @media (width <= 992px) {
+      width: 90%;
+      margin: auto;
+    }
   }
 
   &__edit {
 
     width: 48%;
+
+    @media (width <= 992px) {
+      width: 90%;
+      margin: auto;
+    }
   }
 }
 
@@ -47,6 +61,7 @@
   width: 80%;
   height: 90%;
   max-height: 200px;
+  max-width: 500px;
   margin: auto;
 
   background-color: #fff;

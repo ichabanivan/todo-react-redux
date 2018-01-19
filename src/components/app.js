@@ -9,7 +9,7 @@ import Filters from '../components/Filters/';
 import ModalError from '../components/ModalError/';
 import ModalRemoveTodo from '../components/ModalRemoveTodo/';
 import ModalChangeLabel from '../components/ModalChangeLabel/';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom';
 
 const Todos = () => (
   <div className="todo__all">
@@ -44,4 +44,3 @@ export default class App extends Component {
     );
   }
 }
-

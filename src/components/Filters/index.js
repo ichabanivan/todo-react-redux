@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
 import { filterActive, filterCompleted, filterAll } from '../../actions/filter';
-import CONSTANTS from '../../constants/'
+import CONSTANTS from '../../constants/';
 
 class Filters extends Component {
   constructor(props) {
@@ -49,4 +49,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { filterAll, filterActive, filterCompleted })(Filters)
-

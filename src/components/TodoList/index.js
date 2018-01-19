@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import TodoItem from '../TodoItem/';
 import './index.scss';
-import CONSTANTS from '../../constants'
+import CONSTANTS from '../../constants';
 
 class TodoList extends Component {
   constructor(props) {

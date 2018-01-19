@@ -34,9 +34,7 @@ class EditTodo extends Component {
       return (
         <form className="todo__edit edit">
           <h2>Edit todo</h2>
-          <p>
-            <span>id:</span>{id}
-          </p>
+          <p> id: { id } </p>
           <input
             className="edit__field"
             onKeyPress={ this.changeItem }
@@ -48,6 +46,13 @@ class EditTodo extends Component {
             className="item__label"
           >
             { status }
+          </Link>
+
+          <Link
+            to="/"
+            className="edit__close"
+          >
+            X
           </Link>
         </form>
       )
