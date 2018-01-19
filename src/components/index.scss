@@ -95,10 +95,13 @@
   }
 
   select {
+
     display: block;
-    padding: 2px 5px;
     font-size: 14px;
     margin: auto;
+    background: #fff;
+    border: 1px solid gray;
+    padding: 5px 10px;
   }
 
   &-footer {
