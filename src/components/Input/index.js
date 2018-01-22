@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux'
 
-import { addTodo, newText } from '../../actions/todo';
+import { pushLink } from '../../actions/router'
+import { newText, addNewTodo } from '../../actions/todo';
 
 import './index.scss';
 
@@ -13,28 +13,7 @@ class Input extends Component {
 
   addItem = (e) => {
     if (e.key === 'Enter') {
-      let isUnic = true,
-        text = e.target.value,
-        length = this.props.todos.length;
-
-      // if empty
-      if (!text) {
-        this.props.push(`/0/error`);
-        return false
-      }
-
-      this.props.todos.map(el => {
-        if (el.body === e.target.value) {
-          isUnic = false;
-        }
-      });
-
-      if (isUnic) {
-        this.props.addTodo(text);
-        this.props.newText('');
-      } else {
-        this.props.push('/0/error')
-      }
+      this.props.addNewTodo(e.target.value)
     }
   };
 
@@ -43,7 +22,7 @@ class Input extends Component {
   };
 
   hideEditing = () => {
-    this.props.push('/')
+    this.props.pushLink('/')
   };
 
   render() {
@@ -62,9 +41,8 @@ class Input extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos,
     text: state.inputText
   }
 };
 
-export default connect(mapStateToProps, { addTodo, newText, push })(Input)
+export default connect(mapStateToProps, { newText, addNewTodo, pushLink })(Input)

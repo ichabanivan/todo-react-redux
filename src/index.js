@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { Route } from 'react-router-dom'
 import { AppContainer } from 'react-hot-loader';
 
 import store, { history } from './store/';
@@ -11,11 +12,9 @@ import App from './components/App';
 const renderApp = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <div>
-            <Component />
-          </div>
+      <Provider store={ store }>
+        <ConnectedRouter history={ history }>
+          <Route path="/" component={ Component } />
         </ConnectedRouter>
       </Provider>
     </AppContainer>,

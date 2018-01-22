@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
-import CONSTANTS from '../../constants/'
+import CONSTANTS from '../../constants/';
 
 class ModalError extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class ModalError extends Component {
   };
 
   agree = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     this.handleHide();
   };
 

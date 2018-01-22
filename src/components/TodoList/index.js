@@ -19,7 +19,7 @@ class TodoList extends Component {
     return (
       <div className="todo__list">
         {
-          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } body={todo.body} label={todo.status} />)
+          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } body={ todo.body } label={ todo.status } />)
         }
       </div>
     );
@@ -52,4 +52,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, null )(TodoList)
+export default connect(mapStateToProps, null)(TodoList)

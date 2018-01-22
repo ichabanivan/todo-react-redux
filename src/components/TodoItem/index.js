@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {push} from 'react-router-redux'
 import {connect} from 'react-redux'
+
+import {pushLink} from '../../actions/router'
 
 import './index.scss';
 
@@ -10,7 +11,7 @@ class TodoItem extends Component {
   }
 
   push = (url) => {
-    this.props.push(url)
+    this.props.pushLink(url)
   };
 
   render () {
@@ -23,7 +24,7 @@ class TodoItem extends Component {
         <div className="item__top">
           <button
             className="item__label"
-            onClick={ () => this.push(`/${todo.index}/change-label`)}
+            onClick={ () => this.props.pushLink(`/${todo.index}/change-label`)}
           > { todo.status } </button>
 
           <span className="item__text">{ todo.body }</span>
@@ -31,11 +32,11 @@ class TodoItem extends Component {
           <div className="item__btns">
             <button
               className="item__delete"
-              onClick={ () => this.push(`/${todo.index}/remove-todo`)}
+              onClick={ () => this.props.pushLink(`/${todo.index}/remove-todo`)}
             > X </button>
             <button
               className="item__edit"
-              onClick={ () => this.push(`/${todo.index}`)}
+              onClick={ () => this.props.pushLink(`/${todo.index}`)}
             > edit </button>
           </div>
         </div>
@@ -48,4 +49,4 @@ class TodoItem extends Component {
   }
 }
 
-export default connect(null, {push})(TodoItem)
+export default connect(null, { pushLink })(TodoItem)

@@ -39,7 +39,7 @@ export default function modals(state = initialState, action) {
       };
 
     case CONSTANTS.HIDE_MODALS:
-      return initialState
+      return initialState;
 
     default:
       return state;

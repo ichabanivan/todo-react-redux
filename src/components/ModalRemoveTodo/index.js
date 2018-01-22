@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
-import { removeTodo } from '../../actions/todo';
+import { pushLink } from '../../actions/router';
+import { removeTodo, actionRemoveTodo } from '../../actions/todo';
 import { newText } from '../../actions/todo';
 
-import CONSTANTS from '../../constants/'
+import CONSTANTS from '../../constants/';
 
 class ModalRemoveTodo extends Component {
   constructor(props) {
     super(props)
   }
-
-  handleHide = () => {
-    this.props.push('/');
-  };
 
   stopPropagation = (e) => {
     e.stopPropagation();
@@ -24,15 +20,13 @@ class ModalRemoveTodo extends Component {
     e.preventDefault();
     const id = this.props.id;
 
-    this.props.removeTodo(id);
-    this.props.newText('');
-    this.handleHide();
+    this.props.actionRemoveTodo(id);
   };
 
   disagree = (e) => {
     e.preventDefault();
 
-    this.handleHide();
+    this.props.pushLink('/');
   };
 
   render() {
@@ -70,4 +64,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { push, removeTodo, newText })(ModalRemoveTodo)
+export default connect(mapStateToProps, { actionRemoveTodo, pushLink, removeTodo, newText })(ModalRemoveTodo)

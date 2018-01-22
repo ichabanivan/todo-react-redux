@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import {connect} from 'react-redux'
 
-import CONSTANTS from '../constants/'
-import {showModal, hideModals} from '../actions/modal';
+import { chooseModal, showModal, hideModals } from '../actions/modal';
 
 import EditTodo from '../components/EditTodo/';
 import Input from '../components/Input/';
@@ -44,32 +43,21 @@ class App extends Component {
     let urlSplit = url.split('/'),
     modal = urlSplit[2];
 
-    this.setState({
-      id: urlSplit[1]
-    });
-
-    if (modal === 'change-label') {
-      this.props.showModal(CONSTANTS.MODAL_STATUS)
-    } else if (modal === 'remove-todo') {
-      this.props.showModal(CONSTANTS.MODAL_REMOVE)
-    } else if (modal === 'error') {
-      this.props.showModal(CONSTANTS.MODAL_ERROR)
-    } else {
-      this.props.hideModals()
-    }
-
+    this.props.chooseModal(modal, Number(urlSplit[1]))
   };
 
   render() {
+    const { id } = this.props;
+
     return (
       <div className="todo">
 
         <Route path="/" component={ Todos } />
         <Route path="/:id/" component={ EditTodo } />
 
-        <ModalError id={this.state.id} />
-        <ModalRemoveTodo id={this.state.id} />
-        <ModalChangeStatus id={this.state.id} />
+        <ModalError id={ id } />
+        <ModalRemoveTodo id={ id } />
+        <ModalChangeStatus id={ id } />
 
       </div>
     );
@@ -78,8 +66,9 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.router.location.pathname
+    url: state.router.location.pathname,
+    id: state.id
   }
 };
 
-export default connect(mapStateToProps, {showModal, hideModals})(App)
+export default connect(mapStateToProps, { chooseModal, showModal, hideModals })(App)

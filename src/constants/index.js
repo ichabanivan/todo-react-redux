@@ -10,7 +10,8 @@ const MODAL_ERROR = 'MODAL_ERROR';
 const MODAL_STATUS = 'MODAL_STATUS';
 const MODAL_REMOVE = 'MODAL_REMOVE';
 const HIDE_MODALS = 'HIDE_MODALS';
-const REDIRECT = 'REDIRECT';
+const SET_PARAMS = 'SET_PARAMS';
+const SET_ID = 'SET_ID';
 
 export default {
   ADD_TODO,
@@ -25,5 +26,6 @@ export default {
   MODAL_STATUS,
   HIDE_MODALS,
   MODAL_REMOVE,
-  REDIRECT
+  SET_PARAMS,
+  SET_ID
 };

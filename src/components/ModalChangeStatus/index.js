@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
 import CONSTANTS from '../../constants/'
-import { changeStatus } from '../../actions/todo';
+import { actionChangeStatus } from '../../actions/todo';
 
 class ModalChangeLabel extends Component {
   constructor(props) {
@@ -11,11 +11,7 @@ class ModalChangeLabel extends Component {
   }
 
   state = {
-    label: this.props.todo.status
-  };
-
-  handleHide = () => {
-    this.props.goBack();
+    label: this.props.status
   };
 
   stopPropagation = (e) => {
@@ -24,16 +20,14 @@ class ModalChangeLabel extends Component {
 
   agree = (e) => {
     e.preventDefault();
-    const todo = this.props.todo;
-    todo.status = this.state.label;
-    todo.date = new Date().toString()
-    this.props.changeStatus(todo);
-    this.handleHide();
+    let status = this.state.label;
+
+    this.props.actionChangeStatus(this.props.id, status)
   };
 
   disagree = (e) => {
     e.preventDefault();
-    this.handleHide();
+    this.props.goBack();
   };
 
   changeStatus = (e) => {
@@ -43,7 +37,7 @@ class ModalChangeLabel extends Component {
   };
 
   render() {
-    const { status } = this.props.todo;
+    const { status } = this.props;
     const { label } = this.state;
 
     if (this.props.isVisible) {
@@ -83,14 +77,15 @@ class ModalChangeLabel extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let id = ownProps.id || 0;
-  let todo = state.todos.filter((el, index) => index === Number(id))[0];
+const mapStateToProps = (state) => {
+  let todo = state.todos.filter((el, index) => index === state.id)[0];
+
   return {
-    todo,
+    status: todo ? todo.status : 'new',
+    id: state.id,
     isVisible: state.modals[CONSTANTS.MODAL_STATUS].isVisible
   }
 };
 
-export default connect(mapStateToProps, { goBack, changeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { goBack, actionChangeStatus })(ModalChangeLabel)
 
