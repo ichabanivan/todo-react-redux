@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Route } from 'react-router-dom';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
 
 import { chooseModal, showModal, hideModals } from '../actions/modal';
 
@@ -13,38 +13,25 @@ import ModalError from '../components/ModalError/';
 import ModalRemoveTodo from '../components/ModalRemoveTodo/';
 import ModalChangeStatus from '../components/ModalChangeStatus/';
 
-import '../../node_modules/normalize.css/normalize.css';
-import '../assets/css/style.scss';
+import 'normalize.css';
 import './index.scss';
 
-const Todos = () => (
-  <div className="todo__all">
-    <h1>Todos</h1>
-    <Input />
-    <TodoList />
-    <Filters />
-  </div>
-);
+const Todos = (props) => {
+  const { id } = props.match.params;
+
+  return (
+    <div>
+      <Input id={ id } />
+      <Route path="/:id/:modal?" component={ EditTodo } />
+      <TodoList id={ id } />
+    </div>
+  );
+};
 
 class App extends Component {
   constructor(props) {
     super(props)
   }
-
-  componentWillMount() {
-    this.url(this.props.url)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.url(nextProps.url)
-  }
-
-  url = (url) => {
-    let urlSplit = url.split('/'),
-    modal = urlSplit[2];
-
-    this.props.chooseModal(modal, Number(urlSplit[1]))
-  };
 
   render() {
     const { id } = this.props;
@@ -52,8 +39,9 @@ class App extends Component {
     return (
       <div className="todo">
 
-        <Route path="/" component={ Todos } />
-        <Route path="/:id/" component={ EditTodo } />
+        <h1>Todos</h1>
+        <Filters />
+        <Route path="/:id?/:modal?" component={ Todos } />
 
         <ModalError id={ id } />
         <ModalRemoveTodo id={ id } />
@@ -66,7 +54,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    url: state.router.location.pathname,
     id: state.id
   }
 };

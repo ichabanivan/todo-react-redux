@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import { connect } from 'react-redux';
 
 import CONSTANTS from '../../constants';
@@ -13,13 +14,18 @@ class TodoList extends Component {
 
   render() {
     const {
-      todos
+      todos,
+      id
     } = this.props;
 
     return (
       <div className="todo__list">
         {
-          todos.map((todo) => <TodoItem key={ todo.index } todo={ todo } body={ todo.body } label={ todo.status } />)
+          todos.map((todo) => {
+            return Number(id) === todo.index ?
+              <TodoItem isActive={ true } key={ todo.index } todo={ todo } body={ todo.body } label={ todo.status } />
+              : <TodoItem isActive={ false } key={ todo.index } todo={ todo } body={ todo.body } label={ todo.status } />
+          })
         }
       </div>
     );
@@ -31,7 +37,7 @@ const filterTodos = (todos, filter, text) => {
     case CONSTANTS.FILTER_ALL:
       return todos.filter((t, index) => {
         t.index = index;
-        return t.body && t.body.indexOf(text) !== -1;
+        return t.body.indexOf(text) !== -1;
       });
     case CONSTANTS.FILTER_COMPLETED:
       return todos.filter((t, index) => {

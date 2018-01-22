@@ -12,6 +12,11 @@
 
   border: 1px solid #3a3a3a;
 
+  &--active {
+
+    background-color: #ddd;
+  }
+
   &__top {
 
     display: flex;
@@ -97,6 +102,9 @@ button {
   text-decoration: none;
 
   color: #000;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .item__edit {
@@ -104,4 +112,9 @@ button {
   font-style: italic;
 
   text-decoration: underline;
+
+  background-color: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
+
 }

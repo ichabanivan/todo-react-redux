@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 
-import { pushLink } from '../../actions/router';
-import { removeTodo, actionRemoveTodo } from '../../actions/todo';
-import { newText } from '../../actions/todo';
+import { newText, removeTodo } from '../../actions/todo';
+import { hideModalAndRemoveTodo, hideModalRemoveTodo } from '../../actions/modal';
 
 import CONSTANTS from '../../constants/';
 
@@ -20,20 +20,23 @@ class ModalRemoveTodo extends Component {
     e.preventDefault();
     const id = this.props.id;
 
-    this.props.actionRemoveTodo(id);
+    this.props.hideModalAndRemoveTodo(id);
   };
 
   disagree = (e) => {
     e.preventDefault();
+    const id = this.props.id;
 
-    this.props.pushLink('/');
+    this.props.hideModalRemoveTodo(id);
   };
 
   render() {
-    if (this.props.isVisible) {
+    const { isVisible } = this.props;
+
+    if (isVisible) {
       return (
         <div>
-          <div className="modal-overlay" onClick={ this.handleHide }>
+          <div className="modal-overlay" onClick={ this.disagree }>
             <form className="modal" onClick={ this.stopPropagation }>
               <div className="modal-content">
                 <h4> Do you want to remove this todo? </h4>
@@ -64,4 +67,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { actionRemoveTodo, pushLink, removeTodo, newText })(ModalRemoveTodo)
+export default connect(mapStateToProps, { hideModalRemoveTodo, hideModalAndRemoveTodo, removeTodo, newText })(ModalRemoveTodo)

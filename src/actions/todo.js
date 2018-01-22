@@ -1,6 +1,6 @@
 import ACTIONS from '../constants/';
 
-import { push, goBack } from 'react-router-redux'
+import { push } from 'react-router-redux'
 
 export const updateText = (obj) => ({
   type: ACTIONS.UPDATE_TODO,
@@ -55,7 +55,7 @@ export function addNewTodo(text) {
 
     // if empty
     if (!text) {
-      dispatch(push(`/${length}/error`))
+      dispatch(push(`/${length}/error`));
       return false
     }
 
@@ -91,6 +91,5 @@ export function actionChangeStatus(id, status) {
     todo.status = status;
 
     dispatch(changeStatus(todo));
-    dispatch(goBack());
   };
 }

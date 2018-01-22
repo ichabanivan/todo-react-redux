@@ -1,29 +1,28 @@
 import React, {Component} from 'react';
+
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
 
 import CONSTANTS from '../../constants/';
+import { hideModalError } from '../../actions/modal';
 
 class ModalError extends Component {
   constructor(props) {
     super(props);
   }
 
-  handleHide = () => {
-    this.props.goBack();
+  handleHide = (e) => {
+    e.preventDefault();
+    this.props.hideModalError()
   };
 
   stopPropagation = (e) => {
     e.stopPropagation();
   };
 
-  agree = (e) => {
-    e.preventDefault();
-    this.handleHide();
-  };
-
   render() {
-    if (this.props.isVisible) {
+    const { isVisible } = this.props;
+
+    if (isVisible) {
       return (
         <div>
           <div className="modal-overlay" onClick={ this.handleHide }>
@@ -34,7 +33,7 @@ class ModalError extends Component {
               <div className="modal-footer">
                 <button
                   className="modal-action"
-                  onClick={ this.agree }
+                  onClick={ this.handleHide }
                 > Agree </button>
               </div>
             </form>
@@ -53,4 +52,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { goBack })(ModalError);
+export default connect(mapStateToProps, { hideModalError })(ModalError);

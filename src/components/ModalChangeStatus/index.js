@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
+
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
-import CONSTANTS from '../../constants/'
+import CONSTANTS from '../../constants/';
 import { actionChangeStatus } from '../../actions/todo';
+import { hideModalAndChangeStatus, hideModalChangeStatus } from '../../actions/modal';
 
 class ModalChangeLabel extends Component {
   constructor(props) {
     super(props);
   }
-
-  state = {
-    label: this.props.status
-  };
 
   stopPropagation = (e) => {
     e.stopPropagation();
@@ -22,12 +20,12 @@ class ModalChangeLabel extends Component {
     e.preventDefault();
     let status = this.state.label;
 
-    this.props.actionChangeStatus(this.props.id, status)
+    this.props.hideModalAndChangeStatus(this.props.id, status)
   };
 
   disagree = (e) => {
     e.preventDefault();
-    this.props.goBack();
+    this.props.hideModalChangeStatus();
   };
 
   changeStatus = (e) => {
@@ -36,11 +34,23 @@ class ModalChangeLabel extends Component {
     })
   };
 
+  componentWillMount() {
+    this.setState({
+      label: this.props.status
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      label: nextProps.status
+    })
+  }
+
   render() {
-    const { status } = this.props;
+    const { status, isVisible } = this.props;
     const { label } = this.state;
 
-    if (this.props.isVisible) {
+    if (isVisible) {
       return (
         <div>
           <div className="modal-overlay" onClick={ this.handleHide }>
@@ -81,11 +91,11 @@ const mapStateToProps = (state) => {
   let todo = state.todos.filter((el, index) => index === state.id)[0];
 
   return {
-    status: todo ? todo.status : 'new',
+    status: todo ? todo.status : null,
     id: state.id,
     isVisible: state.modals[CONSTANTS.MODAL_STATUS].isVisible
   }
 };
 
-export default connect(mapStateToProps, { goBack, actionChangeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus, goBack, actionChangeStatus })(ModalChangeLabel)
 

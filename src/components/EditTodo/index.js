@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+
+import { chooseModal } from '../../actions/modal';
+import { hideEditing } from '../../actions/router';
 import { updateText, changeStatus } from '../../actions/todo';
-import { pushLink } from '../../actions/router';
 
 import './index.scss';
 
@@ -12,15 +15,20 @@ class EditTodo extends Component {
   }
 
   changeItem = (e) => {
+    const {
+      match,
+      updateText
+    } = this.props;
+
     if (e.key === 'Enter') {
       e.preventDefault();
 
       let obj = {
-        id: this.props.match.params.id,
+        id: match.params.id,
         body: e.target.value
       };
 
-      this.props.updateText(obj)
+      updateText(obj)
     }
   };
 
@@ -29,9 +37,17 @@ class EditTodo extends Component {
   };
 
   componentDidMount() {
+    const {
+      todo,
+      chooseModal,
+      match
+    } = this.props;
+
     this.setState({
-      body: this.props.todo.body
-    })
+      body: todo.body
+    });
+
+    chooseModal(match.params.modal, Number(match.params.id))
   }
 
   changeInput = (e) => {
@@ -43,47 +59,52 @@ class EditTodo extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       body: nextProps.todo.body
-    })
+    });
+
+    // If url was changed
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.props.chooseModal(nextProps.match.params.modal, Number(nextProps.match.params.id))
+    }
   }
 
-  pushLink = (url) => {
-    this.props.pushLink(url)
-  };
-
   render() {
-
     if (this.props.isVisible) {
+
       const {
-        date,
-        status,
-        id
-      } = this.props.todo;
+        todo,
+        push,
+        hideEditing
+      } = this.props;
+
+      const {
+        body
+      } = this.state;
 
       return (
         <form className="todo__edit edit">
           <h2>Edit todo</h2>
-          <p> id: { id } </p>
+          <p> id: { todo.id } </p>
           <input
             className="edit__field"
             onKeyPress={ this.changeItem }
-            value={ this.state.body }
+            value={ body }
             onChange={ this.changeInput }
           />
-          <p>{ date }</p>
+          <p>{ todo.date }</p>
           <button
             className="item__label"
             onClick={ (e) => {
               e.preventDefault();
-              this.pushLink(`/${ id }/change-label`)
+              push(`/${ todo.id }/change-label`)
             }}
           >
-            { status }
+            { todo.status }
           </button>
 
           <button
             onClick={ (e) => {
               e.preventDefault();
-              this.pushLink('/')
+              hideEditing()
             }}
 
             className="edit__close"
@@ -100,7 +121,6 @@ class EditTodo extends Component {
 
 const editTodo = (todos, id) => {
   let todo = todos.filter((el, index) => id === index)[0];
-
   return {
     ...todo,
     id
@@ -108,10 +128,11 @@ const editTodo = (todos, id) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  let id = Number(ownProps.match.params.id);
   return {
-    todo: editTodo(state.todos, Number(ownProps.match.params.id)),
+    todo: editTodo(state.todos, id),
     isVisible: state.id <= state.todos.length
   }
 };
 
-export default connect(mapStateToProps, { updateText, changeStatus, pushLink })(EditTodo)
+export default connect(mapStateToProps, { hideEditing, chooseModal, updateText, changeStatus, push })(EditTodo)

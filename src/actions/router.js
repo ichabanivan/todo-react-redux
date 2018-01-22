@@ -1,7 +1,9 @@
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
+import { setId } from './modal';
 
-export function pushLink(url) {
+export function hideEditing() {
   return (dispatch) => {
-    dispatch(push(url));
+    dispatch(push('/'));
+    dispatch(setId(null));
   };
 }
