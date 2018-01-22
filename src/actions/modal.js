@@ -1,6 +1,6 @@
 import ACTIONS from '../constants/';
 
-export const showModal = (filter, type) => {
+export const showModal = (type) => {
   return {
     type: type,
     payload: {

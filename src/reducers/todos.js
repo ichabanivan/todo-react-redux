@@ -37,11 +37,11 @@ export default function todos(state = initialState, action) {
       ];
 
     case CONSTANTS.REMOVE_TODO:
-      return state.filter((el, index) => index !== parseInt(action.id));
+      return state.filter((el, index) => index !== Number(action.id));
 
     case CONSTANTS.UPDATE_TODO:
       return state.map((todo, index) => (
-        index === parseInt(action.payload.id)
+        index === Number(action.payload.id)
         ? Object.assign(todo, action.payload)
         : todo
       ));

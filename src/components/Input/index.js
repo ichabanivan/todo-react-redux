@@ -19,7 +19,7 @@ class Input extends Component {
 
       // if empty
       if (!text) {
-        this.props.push(`/all/${ length + 1 }/error`);
+        this.props.push(`/0/error`);
         return false
       }
 
@@ -33,7 +33,7 @@ class Input extends Component {
         this.props.addTodo(text);
         this.props.newText('');
       } else {
-        this.props.push(`/${ length + 1 }/error`)
+        this.props.push('/0/error')
       }
     }
   };

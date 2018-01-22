@@ -109,7 +109,7 @@ const editTodo = (todos, id) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    todo: editTodo(state.todos, parseInt(ownProps.match.params.id))
+    todo: editTodo(state.todos, Number(ownProps.match.params.id))
   }
 };
 

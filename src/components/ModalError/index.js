@@ -17,7 +17,8 @@ class ModalError extends Component {
     e.stopPropagation();
   };
 
-  agree = () => {
+  agree = (e) => {
+    e.preventDefault()
     this.handleHide();
   };
 
@@ -47,6 +48,7 @@ class ModalError extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.modals[CONSTANTS.MODAL_ERROR])
   return {
     isVisible: state.modals[CONSTANTS.MODAL_ERROR].isVisible
   }

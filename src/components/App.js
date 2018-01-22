@@ -43,16 +43,17 @@ class App extends Component {
   url = (url) => {
     let urlSplit = url.split('/'),
     modal = urlSplit[2];
+
     this.setState({
       id: urlSplit[1]
     });
 
     if (modal === 'change-label') {
-      this.props.showModal(CONSTANTS.SHOW_MODAL, CONSTANTS.MODAL_STATUS)
+      this.props.showModal(CONSTANTS.MODAL_STATUS)
     } else if (modal === 'remove-todo') {
-      this.props.showModal(CONSTANTS.SHOW_MODAL, CONSTANTS.MODAL_REMOVE)
+      this.props.showModal(CONSTANTS.MODAL_REMOVE)
     } else if (modal === 'error') {
-      this.props.showModal(CONSTANTS.SHOW_MODAL, CONSTANTS.MODAL_ERROR)
+      this.props.showModal(CONSTANTS.MODAL_ERROR)
     } else {
       this.props.hideModals()
     }

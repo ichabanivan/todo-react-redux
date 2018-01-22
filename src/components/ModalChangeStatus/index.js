@@ -26,6 +26,7 @@ class ModalChangeLabel extends Component {
     e.preventDefault();
     const todo = this.props.todo;
     todo.status = this.state.label;
+    todo.date = `${new Date(Date.now())}`
     this.props.changeStatus(todo);
     this.handleHide();
   };
@@ -84,7 +85,7 @@ class ModalChangeLabel extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   let id = ownProps.id || 0;
-  let todo = state.todos.filter((el, index) => index === parseInt(id))[0];
+  let todo = state.todos.filter((el, index) => index === Number(id))[0];
   return {
     todo,
     isVisible: state.modals[CONSTANTS.MODAL_STATUS].isVisible

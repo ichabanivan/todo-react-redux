@@ -9,7 +9,6 @@ const SET_FILTER = 'SET_FILTER';
 const MODAL_ERROR = 'MODAL_ERROR';
 const MODAL_STATUS = 'MODAL_STATUS';
 const MODAL_REMOVE = 'MODAL_REMOVE';
-const SHOW_MODAL = 'SHOW_MODAL';
 const HIDE_MODALS = 'HIDE_MODALS';
 
 export default {
@@ -23,7 +22,6 @@ export default {
   SET_FILTER,
   MODAL_ERROR,
   MODAL_STATUS,
-  SHOW_MODAL,
   HIDE_MODALS,
   MODAL_REMOVE
 };
