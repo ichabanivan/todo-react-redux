@@ -48,7 +48,6 @@ class ModalError extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.modals[CONSTANTS.MODAL_ERROR])
   return {
     isVisible: state.modals[CONSTANTS.MODAL_ERROR].isVisible
   }
