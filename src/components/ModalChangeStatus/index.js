@@ -26,7 +26,7 @@ class ModalChangeLabel extends Component {
     e.preventDefault();
     const todo = this.props.todo;
     todo.status = this.state.label;
-    todo.date = `${new Date(Date.now())}`
+    todo.date = new Date().toString()
     this.props.changeStatus(todo);
     this.handleHide();
   };

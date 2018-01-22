@@ -5,7 +5,7 @@ export const updateText = (obj) => ({
   payload: {
     body: obj.body,
     id: obj.id,
-    date: `${new Date(Date.now())}`
+    date: new Date().toString()
   }
 });
 
@@ -18,7 +18,7 @@ export const addTodo = (text) => {
   return {
     type: ACTIONS.ADD_TODO,
     payload: {
-      date: `${new Date(Date.now())}`,
+      date: new Date().toString(),
       body: text,
       status: 'new'
     }
@@ -33,7 +33,7 @@ export const removeTodo = (id) => {
 };
 
 export const changeStatus = (todo) => {
-  let date = `${new Date(Date.now())}`;
+  let date = new Date().toString()
 
   return {
     type: ACTIONS.UPDATE_TODO,
