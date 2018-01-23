@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import CONSTANTS from '../../constants/';
 
-import { actionChangeStatus } from '../../actions/todo';
 import { hideModalAndChangeStatus, hideModalChangeStatus } from '../../actions/modal';
 
 class ModalChangeLabel extends Component {
@@ -97,5 +96,5 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus, actionChangeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus })(ModalChangeLabel)
 
