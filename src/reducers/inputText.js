@@ -5,6 +5,9 @@ export default function inputText(state = '', action) {
     case CONSTANTS.NEW_TEXT:
       return action.text;
 
+    case CONSTANTS.RESET_TEXT:
+      return '';
+
     default:
       return state;
   }

@@ -21,8 +21,7 @@ export const updateTodo = (todo, id) => {
 };
 
 export const resetText = () => ({
-  type: ACTIONS.NEW_TEXT,
-  text: ''
+  type: ACTIONS.RESET_TEXT
 });
 
 export const newText = (text) => ({
