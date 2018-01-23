@@ -13,7 +13,7 @@ export const updateTodo = (todo, id) => {
           modified: new Date().toLocaleDateString()
         }
       });
-      push(`/${id}`)
+      dispatch(push(`/${id}`))
     } else {
       dispatch(push(`/${ id }/error`));
     }
