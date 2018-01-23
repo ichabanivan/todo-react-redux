@@ -3,6 +3,4 @@ node_modules
 build
 .idea/
 .npm
-
-src/reducers/routeParams.js
-src/actions/routeParams.js
+.csscomb.json

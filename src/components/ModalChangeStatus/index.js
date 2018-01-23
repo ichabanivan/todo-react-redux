@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 
 import CONSTANTS from '../../constants/';
+
 import { actionChangeStatus } from '../../actions/todo';
 import { hideModalAndChangeStatus, hideModalChangeStatus } from '../../actions/modal';
 

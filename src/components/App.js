@@ -5,28 +5,14 @@ import { connect } from 'react-redux';
 
 import { chooseModal, showModal, hideModals } from '../actions/modal';
 
-import EditTodo from '../components/EditTodo/';
-import Input from '../components/Input/';
-import TodoList from '../components/TodoList/';
-import Filters from '../components/Filters/';
-import ModalError from '../components/ModalError/';
-import ModalRemoveTodo from '../components/ModalRemoveTodo/';
-import ModalChangeStatus from '../components/ModalChangeStatus/';
+import Todos from './Todos/';
+import Filters from './Filters/';
+import ModalError from './ModalError/';
+import ModalRemoveTodo from './ModalRemoveTodo/';
+import ModalChangeStatus from './ModalChangeStatus/';
 
 import 'normalize.css';
 import './index.scss';
-
-const Todos = (props) => {
-  const { id } = props.match.params;
-
-  return (
-    <div>
-      <Input id={ id } />
-      <Route path="/:id/:modal?" component={ EditTodo } />
-      <TodoList id={ id } />
-    </div>
-  );
-};
 
 class App extends Component {
   constructor(props) {
@@ -43,9 +29,9 @@ class App extends Component {
         <Filters />
         <Route path="/:id?/:modal?" component={ Todos } />
 
-        <ModalError id={ id } />
-        <ModalRemoveTodo id={ id } />
-        <ModalChangeStatus id={ id } />
+        <ModalError />
+        <ModalRemoveTodo />
+        <ModalChangeStatus />
 
       </div>
     );

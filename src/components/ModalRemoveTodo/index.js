@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { newText, removeTodo } from '../../actions/todo';
-import { hideModalAndRemoveTodo, hideModalRemoveTodo } from '../../actions/modal';
-
 import CONSTANTS from '../../constants/';
+
+import { hideModalAndRemoveTodo, hideModalRemoveTodo } from '../../actions/modal';
 
 class ModalRemoveTodo extends Component {
   constructor(props) {
@@ -63,8 +62,9 @@ class ModalRemoveTodo extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isVisible: state.modals[CONSTANTS.MODAL_REMOVE].isVisible
+    isVisible: state.modals[CONSTANTS.MODAL_REMOVE].isVisible,
+    id: state.id
   }
 };
 
-export default connect(mapStateToProps, { hideModalRemoveTodo, hideModalAndRemoveTodo, removeTodo, newText })(ModalRemoveTodo)
+export default connect(mapStateToProps, { hideModalRemoveTodo, hideModalAndRemoveTodo })(ModalRemoveTodo)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { pushTo } from '../../actions/push';
 
 import './index.scss';
 
@@ -13,7 +13,7 @@ class TodoItem extends Component {
   render () {
     const {
       todo,
-      push,
+      pushTo,
       isActive
     } = this.props;
 
@@ -24,7 +24,7 @@ class TodoItem extends Component {
         <div className="item__top">
           <button
             className="item__label"
-            onClick={ () => push(`/${todo.index}/change-label`)}
+            onClick={ () => pushTo(`/${todo.id}/change-label`, todo.id)}
           > { todo.status } </button>
 
           <span className="item__text">{ todo.body }</span>
@@ -32,21 +32,22 @@ class TodoItem extends Component {
           <div className="item__btns">
             <button
               className="item__delete"
-              onClick={ () => push(`/${todo.index}/remove-todo`)}
+              onClick={ () => pushTo(`/${todo.id}/remove-todo`, todo.id)}
             > X </button>
             <button
               className="item__edit"
-              onClick={ () => push(`/${todo.index}`)}
+              onClick={ () => pushTo(`/${todo.id}`, todo.id)}
             > edit </button>
           </div>
         </div>
 
         <div>
-          <span className="item__date"> { todo.date } </span>
+          <div>Created: { todo.created } </div>
+          <div>Мodified: { todo.modified } </div>
         </div>
       </div>
     );
   }
 }
 
-export default connect(null, { push })(TodoItem)
+export default connect(null, { pushTo })(TodoItem)

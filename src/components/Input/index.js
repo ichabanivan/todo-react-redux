@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { hideEditing } from '../../actions/router'
-import { newText, addNewTodo } from '../../actions/todo';
+import { updateText, newText, addNewTodo } from '../../actions/todo';
+import { pushTo } from '../../actions/push';
 
 import './index.scss';
 
@@ -12,7 +12,11 @@ class Input extends Component {
     super(props)
   }
 
-  addItem = (e) => {
+  state = {
+    body: ''
+  };
+
+  addNewItem = (e) => {
     const { addNewTodo } = this.props;
 
     if (e.key === 'Enter') {
@@ -20,7 +24,7 @@ class Input extends Component {
     }
   };
 
-  changeValue = (e) => {
+  changeNewValue = (e) => {
     const { newText } = this.props;
 
     let text = e.target.value;
@@ -28,29 +32,95 @@ class Input extends Component {
     newText(text)
   };
 
+  changeTodo = (e) => {
+    const {
+      todo,
+      updateText
+    } = this.props;
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      let obj = {
+        id: todo.id,
+        body: e.target.value
+      };
+
+      updateText(obj)
+    }
+  };
+
+  changeInput = (e) => {
+    this.setState({
+      body: e.target.value
+    })
+  };
+
+  componentWillMount() {
+    const {
+      todo
+    } = this.props;
+
+    if (todo) {
+      this.setState({
+        body: todo.body
+      })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.todo) {
+      this.setState({
+        body: nextProps.todo.body
+      })
+    }
+  }
+
   render() {
     const {
       text,
-      hideEditing
+      id,
+      pushTo
     } = this.props;
 
-    return (
-      <input
-        className="create-todo"
-        placeholder="What needs to be done?"
-        onChange={ this.changeValue }
-        onKeyPress={ this.addItem }
-        value={ text }
-        onFocus={ hideEditing }
-      />
-    );
+    const {
+      body
+    } = this.state;
+
+    // If it is editing
+    if (id) {
+      return (
+        <div className="edit-todo">
+          <input
+            className="create-todo"
+            placeholder="What needs to be done?"
+            onKeyPress={ this.changeTodo }
+            value={ body }
+            onChange={ this.changeInput }
+          />
+          <span onClick={ () => pushTo('/') } title="Close editing"> X </span>
+        </div>
+      );
+    } else {
+      return (
+        <input
+          className="create-todo"
+          placeholder="What needs to be done?"
+          onChange={ this.changeNewValue }
+          onKeyPress={ this.addNewItem }
+          value={ text }
+        />
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    text: state.inputText
+    id: state.id,
+    text: state.inputText,
+    todo: state.todos.filter((todo) => todo.id === state.id)[0]
   }
 };
 
-export default connect(mapStateToProps, { newText, addNewTodo, hideEditing })(Input)
+export default connect(mapStateToProps, { pushTo, updateText, newText, addNewTodo })(Input)

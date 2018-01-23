@@ -1,15 +1,19 @@
+import moment from 'moment';
+
 import ACTIONS from '../constants/';
 
 import { push } from 'react-router-redux'
 
-export const updateText = (obj) => ({
-  type: ACTIONS.UPDATE_TODO,
-  payload: {
-    body: obj.body,
-    id: obj.id,
-    date: new Date().toString()
-  }
-});
+export const updateText = (obj) => {
+  return ({
+    type: ACTIONS.UPDATE_TODO,
+    payload: {
+      body: obj.body,
+      id: obj.id,
+      modified: moment().format('MMMM Do YYYY, h:mm:ss a')
+    }
+  });
+};
 
 export const newText = (text) => ({
   type: ACTIONS.NEW_TEXT,
@@ -17,12 +21,16 @@ export const newText = (text) => ({
 });
 
 export const addTodo = (text) => {
+  let date = moment().format('MMMM Do YYYY, h:mm:ss a');
+
   return {
     type: ACTIONS.ADD_TODO,
     payload: {
-      date: new Date().toString(),
+      created: date,
+      modified: date,
       body: text,
-      status: 'new'
+      status: 'new',
+      id: Math.floor(Math.random() * 10000)
     }
   }
 };
@@ -35,13 +43,13 @@ export const removeTodo = (id) => {
 };
 
 export const changeStatus = (todo) => {
-  let date = new Date().toString();
+  let modified = moment().format('MMMM Do YYYY, h:mm:ss a');
 
   return {
     type: ACTIONS.UPDATE_TODO,
     payload: {
       ...todo,
-      date
+      modified
     }
   };
 };
@@ -50,19 +58,17 @@ export function addNewTodo(text) {
   return (dispatch, getState) => {
     let state = getState();
     let isUnic = true,
-      length = state.todos.length,
-      id;
+      id = Math.floor(Math.random() * 10000);
 
     // if empty
     if (!text) {
-      dispatch(push(`/${length}/error`));
+      dispatch(push(`/${ id }/error`));
       return false
     }
 
-    state.todos.map((el, i) => {
-      if (el.body === text) {
-        isUnic = false;
-        id = i;
+    state.todos.forEach((todo) => {
+      if ( todo.body === text ) {
+        isUnic = false
       }
     });
 
@@ -86,8 +92,7 @@ export function actionRemoveTodo(id) {
 export function actionChangeStatus(id, status) {
   return (dispatch, getState) => {
     let state = getState();
-    let todo = state.todos.filter((el, index) => index === Number(id))[0];
-    todo.date = new Date().toString();
+    let todo = state.todos.filter((todo) => state.id === todo.id)[0];
     todo.status = status;
 
     dispatch(changeStatus(todo));
