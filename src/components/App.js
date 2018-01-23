@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { chooseModal, showModal, hideModals } from '../actions/modal';
-
 import Todos from './Todos/';
 import Filters from './Filters/';
 import ModalError from './ModalError/';
@@ -44,4 +42,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { chooseModal, showModal, hideModals })(App)
+export default connect(mapStateToProps, null)(App)

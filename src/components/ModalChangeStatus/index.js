@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
 
 import CONSTANTS from '../../constants/';
 
@@ -98,5 +97,5 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus, goBack, actionChangeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus, actionChangeStatus })(ModalChangeLabel)
 
