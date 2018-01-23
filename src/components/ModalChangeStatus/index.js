@@ -87,7 +87,7 @@ class ModalChangeLabel extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let todo = state.todos.filter((el, index) => index === state.id)[0];
+  let todo = state.todos.filter((el) => el.id === state.id)[0];
 
   return {
     status: todo ? todo.status : null,
