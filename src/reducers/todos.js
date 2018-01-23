@@ -38,6 +38,17 @@ let initialState =  [
   }
 ];
 
+let a = fetch('/todos')
+  .then(function(response) {
+    console.log(1)
+    console.log(response)
+  })
+  .then(function(data) {
+    console.log(2)
+    console.log(data)
+  })
+  .catch( alert );
+
 export default function todos(state = initialState, action) {
   switch (action.type) {
     case CONSTANTS.ADD_TODO:
