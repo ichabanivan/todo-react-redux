@@ -1,10 +1,7 @@
 import { push } from 'react-router-redux';
 
-import { setId } from './modal';
-
-export function pushTo(url, id) {
+export function pushTo(url) {
   return (dispatch) => {
     dispatch(push(url));
-    dispatch(setId(id));
   };
 }
