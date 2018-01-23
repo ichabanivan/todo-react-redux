@@ -6,10 +6,31 @@ import CONSTANTS from '../../constants/';
 
 import { hideModalAndChangeStatus, hideModalChangeStatus } from '../../actions/modal';
 
-class ModalChangeLabel extends Component {
+class ModalChangenewStatus extends Component {
   constructor(props) {
     super(props);
   }
+
+  state = {
+    newStatus: 'new'
+  };
+
+  componentDidMount() {
+    this.setState({
+      newStatus: this.props.status
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      newStatus: nextProps.status
+    })
+  }
+
+  handleHide = (e) => {
+    e.preventDefault();
+    this.props.hideModalChangeStatus()
+  };
 
   stopPropagation = (e) => {
     e.stopPropagation();
@@ -17,7 +38,7 @@ class ModalChangeLabel extends Component {
 
   agree = (e) => {
     e.preventDefault();
-    let status = this.state.label;
+    let status = this.state.newStatus;
 
     this.props.hideModalAndChangeStatus(this.props.id, status)
   };
@@ -29,25 +50,13 @@ class ModalChangeLabel extends Component {
 
   changeStatus = (e) => {
     this.setState({
-      label: e.target.value
+      newStatus: e.target.value
     })
   };
 
-  componentWillMount() {
-    this.setState({
-      label: this.props.status
-    })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      label: nextProps.status
-    })
-  }
-
   render() {
     const { status, isVisible } = this.props;
-    const { label } = this.state;
+    const { newStatus } = this.state;
 
     if (isVisible) {
       return (
@@ -55,7 +64,7 @@ class ModalChangeLabel extends Component {
           <div className="modal-overlay" onClick={ this.handleHide }>
             <form className="modal" onClick={ this.stopPropagation }>
               <div className="modal-content">
-                <h4> Do you want change label? </h4>
+                <h4> Do you want change status? </h4>
 
                 <select defaultValue={ status } onChange={ this.changeStatus }>
                   <option value="new">new</option>
@@ -73,7 +82,7 @@ class ModalChangeLabel extends Component {
                 <button
                   className="modal-action"
                   onClick={ this.agree }
-                  disabled={ label === status }
+                  disabled={ newStatus === status }
                 > Agree </button>
               </div>
             </form>
@@ -87,14 +96,13 @@ class ModalChangeLabel extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let todo = state.todos.filter((el) => el.id === state.id)[0];
+  let todo = state.todos.filter((todo) => todo.id === state.id)[0];
 
   return {
     status: todo ? todo.status : null,
-    id: state.id,
     isVisible: state.modals[CONSTANTS.MODAL_STATUS].isVisible
   }
 };
 
-export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus })(ModalChangeLabel)
+export default connect(mapStateToProps, { hideModalAndChangeStatus, hideModalChangeStatus })(ModalChangenewStatus)
 

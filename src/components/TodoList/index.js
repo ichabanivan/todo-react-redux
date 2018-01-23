@@ -21,7 +21,7 @@ class TodoList extends Component {
       <div className="todo__list">
         {
           todos.map((todo) => {
-            return <TodoItem isActive={ Number(id) === todo.id } key={ Math.random() } todo={ todo } />
+            return <TodoItem isActive={ id === todo.id } key={ Math.random() } todo={ todo } />
           })
         }
       </div>

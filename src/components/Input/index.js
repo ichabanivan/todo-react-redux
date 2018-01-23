@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { updateText, newText, addNewTodo } from '../../actions/todo';
+import { updateTodo, newText, addNewTodo } from '../../actions/todo';
 import { pushTo } from '../../actions/push';
 
 import './index.scss';
@@ -15,6 +15,29 @@ class Input extends Component {
   state = {
     body: ''
   };
+
+  componentDidMount() {
+    const {
+      todo,
+      pushTo
+    } = this.props;
+
+    if (todo) {
+      this.setState({
+        body: todo.body
+      })
+    } else {
+      pushTo('/')
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.todo) {
+      this.setState({
+        body: nextProps.todo.body
+      })
+    }
+  }
 
   addNewItem = (e) => {
     const { addNewTodo } = this.props;
@@ -35,10 +58,11 @@ class Input extends Component {
   changeTodo = (e) => {
     const {
       todo,
-      updateText
+      updateTodo,
+      id
     } = this.props;
 
-    if (e.key === 'Enter') {
+    if (e.charCode === 13) {
       e.preventDefault();
 
       let obj = {
@@ -46,7 +70,7 @@ class Input extends Component {
         body: e.target.value
       };
 
-      updateText(obj)
+      updateTodo(obj, id)
     }
   };
 
@@ -55,26 +79,6 @@ class Input extends Component {
       body: e.target.value
     })
   };
-
-  componentWillMount() {
-    const {
-      todo
-    } = this.props;
-
-    if (todo) {
-      this.setState({
-        body: todo.body
-      })
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.todo) {
-      this.setState({
-        body: nextProps.todo.body
-      })
-    }
-  }
 
   render() {
     const {
@@ -93,7 +97,7 @@ class Input extends Component {
         <div className="edit-todo">
           <input
             className="create-todo"
-            placeholder="What needs to be done?"
+            placeholder="Editing..."
             onKeyPress={ this.changeTodo }
             value={ body }
             onChange={ this.changeInput }
@@ -115,12 +119,11 @@ class Input extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    id: state.id,
     text: state.inputText,
-    todo: state.todos.filter((todo) => todo.id === state.id)[0]
+    todo: state.todos.filter((todo) => todo.id === ownProps.id)[0]
   }
 };
 
-export default connect(mapStateToProps, { pushTo, updateText, newText, addNewTodo })(Input)
+export default connect(mapStateToProps, { pushTo, updateTodo, newText, addNewTodo })(Input)

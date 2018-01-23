@@ -2,39 +2,39 @@ import CONSTANTS from '../constants/';
 
 let initialState =  [
   {
-    id: 10001,
+    id: Math.floor(Math.random() * 10000).toString(),
     body: '1Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh.',
     status: 'new',
-    created: 'January 11rd 2017, 2:44:12 pm',
-    modified: 'January 11rd 2017, 2:44:12 pm'
+    created: new Date().toLocaleDateString(),
+    modified: new Date().toLocaleDateString()
   },
   {
-    id: 10012,
+    id: Math.floor(Math.random() * 10000).toString(),
     body: '2Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.',
     status: 'review',
-    created: 'January 21rd 2018, 10:12:11 pm',
-    modified: 'January 21rd 2018, 10:12:11 pm'
+    created: new Date().toLocaleDateString(),
+    modified: new Date().toLocaleDateString()
   },
   {
-    id: 10023,
+    id: Math.floor(Math.random() * 10000).toString(),
     body: '3Nulla quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
     status: 'completed',
-    created: 'January 23rd 2018, 1:12:17 pm',
-    modified: 'January 23rd 2018, 1:12:17 pm'
+    created: new Date().toLocaleDateString(),
+    modified: new Date().toLocaleDateString()
   },
   {
-    id: 10034,
+    id: Math.floor(Math.random() * 10000).toString(),
     body: '4quis lorem ut libero malesuada feugiat. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
     status: 'review',
-    created: 'January 23rd 2018, 11:12:37 am',
-    modified: 'January 23rd 2018, 11:12:37 am'
+    created: new Date().toLocaleDateString(),
+    modified: new Date().toLocaleDateString()
   },
   {
-    id: 10045,
+    id: Math.floor(Math.random() * 10000).toString(),
     body: '5D elit, eget tincidunt nibh pulvinar a. 123',
     status: 'in progress',
-    created: 'January 23rd 2018, 2:11:37 pm',
-    modified: 'January 23rd 2018, 2:11:37 pm'
+    created: new Date().toLocaleDateString(),
+    modified: new Date().toLocaleDateString()
   }
 ];
 

@@ -2,30 +2,30 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { setId } from '../../actions/modal';
 import { chooseModal } from '../../actions/modal';
 
 import Input from '../Input/';
 import TodoList from '../TodoList/';
+
+import ModalError from '../ModalError/';
+import ModalRemoveTodo from '../ModalRemoveTodo/';
+import ModalChangeStatus from '../ModalChangeStatus/';
 
 class Todos extends Component {
   constructor(props) {
     super(props)
   }
 
+  state = {
+    body: ''
+  };
+
   componentDidMount() {
     const {
       chooseModal,
       match
+
     } = this.props;
-
-    chooseModal(match.params.modal, Number(match.params.id))
-  }
-
-  componentWillMount() {
-    const { match, setId } = this.props;
-
-    setId(Number(match.params.id));
 
     const {
       todo
@@ -36,6 +36,8 @@ class Todos extends Component {
         body: todo.body
       })
     }
+
+    chooseModal(match.params.modal, match.params.id)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +49,7 @@ class Todos extends Component {
 
     // If url was changed
     if (nextProps.location.pathname !== this.props.location.pathname) {
-      this.props.chooseModal(nextProps.match.params.modal, Number(nextProps.match.params.id))
+      this.props.chooseModal(nextProps.match.params.modal, nextProps.match.params.id)
     }
   }
 
@@ -59,15 +61,13 @@ class Todos extends Component {
       <div>
         <Input id={ id } />
         <TodoList id={ id } />
+
+        <ModalError />
+        <ModalRemoveTodo id={ id } />
+        <ModalChangeStatus id={ id } />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    id: state.id
-  }
-};
-
-export default connect(mapStateToProps, { chooseModal, setId })(Todos)
+export default connect(null, { chooseModal })(Todos)

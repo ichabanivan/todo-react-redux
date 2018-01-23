@@ -1,27 +1,37 @@
-import moment from 'moment';
-
 import ACTIONS from '../constants/';
 
 import { push } from 'react-router-redux'
 
-export const updateText = (obj) => {
-  return ({
-    type: ACTIONS.UPDATE_TODO,
-    payload: {
-      body: obj.body,
-      id: obj.id,
-      modified: moment().format('MMMM Do YYYY, h:mm:ss a')
+export const updateTodo = (todo, id) => {
+  return dispatch => {
+    if (todo.body) {
+      dispatch({
+        type: ACTIONS.UPDATE_TODO,
+        payload: {
+          body: todo.body,
+          id: todo.id,
+          modified: new Date().toLocaleDateString()
+        }
+      });
+      push(`/${id}`)
+    } else {
+      dispatch(push(`/${ id }/error`));
     }
-  });
+  }
 };
+
+export const resetText = () => ({
+  type: ACTIONS.NEW_TEXT,
+  text: ''
+});
 
 export const newText = (text) => ({
   type: ACTIONS.NEW_TEXT,
   text
 });
 
-export const addTodo = (text) => {
-  let date = moment().format('MMMM Do YYYY, h:mm:ss a');
+export const addTodo = (text, id) => {
+  let date = new Date().toLocaleDateString();
 
   return {
     type: ACTIONS.ADD_TODO,
@@ -30,7 +40,7 @@ export const addTodo = (text) => {
       modified: date,
       body: text,
       status: 'new',
-      id: Math.floor(Math.random() * 10000)
+      id
     }
   }
 };
@@ -43,7 +53,7 @@ export const removeTodo = (id) => {
 };
 
 export const changeStatus = (todo) => {
-  let modified = moment().format('MMMM Do YYYY, h:mm:ss a');
+  let modified = new Date().toLocaleDateString();
 
   return {
     type: ACTIONS.UPDATE_TODO,
@@ -58,7 +68,7 @@ export function addNewTodo(text) {
   return (dispatch, getState) => {
     let state = getState();
     let isUnic = true,
-      id = Math.floor(Math.random() * 10000);
+      id = Math.floor(Math.random() * 10000).toString();
 
     // if empty
     if (!text) {
@@ -73,8 +83,8 @@ export function addNewTodo(text) {
     });
 
     if (isUnic) {
-      dispatch(addTodo(text));
-      dispatch(newText(''));
+      dispatch(addTodo(text, id));
+      dispatch(resetText());
     } else {
       dispatch(push(`/${ id }/error`));
     }
@@ -84,7 +94,7 @@ export function addNewTodo(text) {
 export function actionRemoveTodo(id) {
   return (dispatch) => {
     dispatch(removeTodo(id));
-    dispatch(newText(''));
+    dispatch(resetText());
     dispatch(push('/'));
   };
 }
@@ -92,7 +102,7 @@ export function actionRemoveTodo(id) {
 export function actionChangeStatus(id, status) {
   return (dispatch, getState) => {
     let state = getState();
-    let todo = state.todos.filter((todo) => state.id === todo.id)[0];
+    let todo = state.todos.filter((todo) => id === todo.id)[0];
     todo.status = status;
 
     dispatch(changeStatus(todo));

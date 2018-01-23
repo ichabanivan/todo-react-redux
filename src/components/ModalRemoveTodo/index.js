@@ -62,8 +62,7 @@ class ModalRemoveTodo extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isVisible: state.modals[CONSTANTS.MODAL_REMOVE].isVisible,
-    id: state.id
+    isVisible: state.modals[CONSTANTS.MODAL_REMOVE].isVisible
   }
 };
 
