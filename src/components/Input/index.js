@@ -18,16 +18,13 @@ class Input extends Component {
 
   componentDidMount() {
     const {
-      todo,
-      pushTo
+      todo
     } = this.props;
 
     if (todo) {
       this.setState({
         body: todo.body
       })
-    } else {
-      pushTo('/')
     }
   }
 

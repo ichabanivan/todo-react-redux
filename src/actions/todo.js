@@ -5,15 +5,28 @@ import { push } from 'react-router-redux'
 export const updateTodo = (todo, id) => {
   return dispatch => {
     if (todo.body) {
-      dispatch({
-        type: ACTIONS.UPDATE_TODO,
-        payload: {
-          body: todo.body,
-          id: todo.id,
-          modified: new Date().toLocaleDateString()
+      fetch('/updateTodo', {
+        method: 'POST',
+        body: id
+      })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        if (response) {
+          dispatch({
+            type: ACTIONS.UPDATE_TODO,
+            todo: {
+              body: todo.body,
+              id,
+              modified: new Date().toLocaleDateString()
+            }
+          });
+          dispatch(push(`/${ id }`))
+        } else {
+          dispatch(push(`/${ id }/error`));
         }
-      });
-      dispatch(push(`/${id}`))
+      })
+      .catch(error => console.log(error));
     } else {
       dispatch(push(`/${ id }/error`));
     }
@@ -29,17 +42,15 @@ export const newText = (text) => ({
   text
 });
 
-export const addTodo = (text, id) => {
-  let date = new Date().toLocaleDateString();
-
+export const addTodo = (todo) => {
   return {
     type: ACTIONS.ADD_TODO,
     payload: {
-      created: date,
-      modified: date,
-      body: text,
+      created: todo.date,
+      modified: todo.date,
+      body: todo.text,
       status: 'new',
-      id
+      id: todo.id
     }
   }
 };
@@ -52,19 +63,16 @@ export const removeTodo = (id) => {
 };
 
 export const changeStatus = (todo) => {
-  let modified = new Date().toLocaleDateString();
-
   return {
     type: ACTIONS.UPDATE_TODO,
-    payload: {
-      ...todo,
-      modified
-    }
+    todo
   };
 };
 
 export function addNewTodo(text) {
   return (dispatch, getState) => {
+    let date = new Date().toLocaleDateString();
+
     let state = getState();
     let isUnic = true,
       id = Math.floor(Math.random() * 10000).toString();
@@ -81,9 +89,27 @@ export function addNewTodo(text) {
       }
     });
 
+    let todo = {
+      text,
+      id,
+      date
+    };
+
     if (isUnic) {
-      dispatch(addTodo(text, id));
-      dispatch(resetText());
+      fetch('/addTodo', {
+        method: 'POST',
+        body: JSON.stringify(todo)
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response) {
+          dispatch(addTodo(todo));
+          dispatch(resetText());
+        } else {
+          dispatch(push(`/${ id }/error`));
+        }
+      })
+      .catch(error => console.log(error));
     } else {
       dispatch(push(`/${ id }/error`));
     }
@@ -92,18 +118,60 @@ export function addNewTodo(text) {
 
 export function actionRemoveTodo(id) {
   return (dispatch) => {
-    dispatch(removeTodo(id));
-    dispatch(resetText());
-    dispatch(push('/'));
-  };
+    fetch('/removeTodo', {
+      method: 'POST',
+      body: id
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        dispatch(removeTodo(id));
+        dispatch(resetText());
+        dispatch(push('/'));
+      } else {
+        dispatch(push(`/${ id }/error`));
+      }
+    })
+    .catch(error => console.log(error));
+  }
 }
 
 export function actionChangeStatus(id, status) {
   return (dispatch, getState) => {
+    let modified = new Date().toLocaleDateString();
     let state = getState();
     let todo = state.todos.filter((todo) => id === todo.id)[0];
     todo.status = status;
+    todo.modified = modified;
 
-    dispatch(changeStatus(todo));
+    fetch('/changeStatus', {
+      method: 'POST',
+      body: JSON.stringify(todo)
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        dispatch(changeStatus(todo));
+      } else {
+        dispatch(push(`/${ id }/error`));
+      }
+    })
+    .catch(error => console.log(error));
+  };
+}
+
+export function initTodos() {
+  return (dispatch) => {
+    fetch('/getTodos', {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(todos => {
+      dispatch({
+        type: ACTIONS.INIT_TODOS,
+        todos
+      })
+    })
+    .catch(error => console.log(error));
   };
 }

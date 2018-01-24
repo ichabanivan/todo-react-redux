@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { initTodos } from '../actions/todo';
 
 import Todos from './Todos/';
 import Filters from './Filters/';
@@ -8,9 +11,13 @@ import Filters from './Filters/';
 import 'normalize.css';
 import './index.scss';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.initTodos()
   }
 
   render() {
@@ -25,3 +32,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(null, { initTodos })(App)
