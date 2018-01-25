@@ -3,9 +3,9 @@ import ACTIONS from '../constants/';
 import { push } from 'react-router-redux'
 
 export const updateTodo = (todo, _id) => {
-  todo.modified = new Date().toLocaleDateString();
-  
   return dispatch => {
+    todo.modified = new Date().toLocaleDateString();
+    
     if (todo.body) {
       fetch('/updateTodo', {
         method: 'POST',
