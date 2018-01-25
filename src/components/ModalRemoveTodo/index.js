@@ -17,16 +17,16 @@ class ModalRemoveTodo extends Component {
 
   agree = (e) => {
     e.preventDefault();
-    const id = this.props.id;
+    const _id = this.props._id;
 
-    this.props.hideModalAndRemoveTodo(id);
+    this.props.hideModalAndRemoveTodo(_id);
   };
 
   disagree = (e) => {
     e.preventDefault();
-    const id = this.props.id;
+    const _id = this.props._id;
 
-    this.props.hideModalRemoveTodo(id);
+    this.props.hideModalRemoveTodo(_id);
   };
 
   render() {

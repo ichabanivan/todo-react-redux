@@ -59,12 +59,12 @@ class Todos extends Component {
 
     return (
       <div>
-        <Input id={ id } />
-        <TodoList id={ id } />
+        <Input _id={id} />
+        <TodoList _id={id} />
 
         <ModalError />
-        <ModalRemoveTodo id={ id } />
-        <ModalChangeStatus id={ id } />
+        <ModalRemoveTodo _id={id} />
+        <ModalChangeStatus _id={id} />
       </div>
     );
   }

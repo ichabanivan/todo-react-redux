@@ -24,7 +24,7 @@ class TodoItem extends Component {
         <div className="item__top">
           <button
             className="item__label"
-            onClick={ () => pushTo(`/${todo.id}/change-label`)}
+            onClick={() => pushTo(`/${todo._id}/change-label`)}
           > { todo.status } </button>
 
           <span className="item__text">{ todo.body }</span>
@@ -32,11 +32,11 @@ class TodoItem extends Component {
           <div className="item__btns">
             <button
               className="item__delete"
-              onClick={ () => pushTo(`/${todo.id}/remove-todo`)}
+              onClick={() => pushTo(`/${todo._id}/remove-todo`)}
             > X </button>
             <button
               className="item__edit"
-              onClick={ () => pushTo(`/${todo.id}`)}
+              onClick={() => pushTo(`/${todo._id}`)}
             > edit </button>
           </div>
         </div>

@@ -15,13 +15,13 @@ class TodoList extends Component {
   render() {
     const {
       todos,
-      id
+      _id
     } = this.props;
     return (
       <div className="todo__list">
         {
           todos.map((todo) => {
-            return <TodoItem isActive={ id === todo.id } key={ Math.random() } todo={ todo } />
+            return <TodoItem isActive={_id === todo._id } key={ Math.random() } todo={ todo } />
           })
         }
       </div>

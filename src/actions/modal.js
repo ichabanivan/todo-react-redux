@@ -40,9 +40,9 @@ export const hideModalError = () => {
   }
 };
 
-export const hideModalAndRemoveTodo = (id) => {
+export const hideModalAndRemoveTodo = (_id) => {
   return (dispatch) => {
-    dispatch(actionRemoveTodo(id));
+    dispatch(actionRemoveTodo(_id));
     dispatch(hideModals());
     dispatch(push('/'));
   }
@@ -55,11 +55,11 @@ export const hideModalRemoveTodo = () => {
   }
 };
 
-export const hideModalAndChangeStatus = (id, status) => {
+export const hideModalAndChangeStatus = (_id, status) => {
   return (dispatch) => {
-    dispatch(actionChangeStatus(id, status));
+    dispatch(actionChangeStatus(_id, status));
     dispatch(hideModals());
-    dispatch(push(`/${id}`));
+    dispatch(push(`/${_id}`));
   }
 };
 

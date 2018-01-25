@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development&&webpack-dev-server --colors --progress --env development",
     "build": "cross-env NODE_ENV=production&&webpack -p --env production",
-    "webserver": "node App.js",
+    "webserver": "node ./server/App.js",
     "server": "nodemon --exec 'npm run webserver'",
     "lint:js": "node_modules/.bin/eslint src",
     "fix:js": "node_modules/.bin/eslint --fix src",
@@ -57,6 +57,7 @@
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
     "mongodb": "^3.0.1",
+    "monk": "^6.0.5",
     "nodemon": "^1.14.11",
     "normalize.css": "^7.0.0",
     "react": "^16.2.0",

@@ -40,7 +40,7 @@ class ModalChangenewStatus extends Component {
     e.preventDefault();
     let status = this.state.newStatus;
 
-    this.props.hideModalAndChangeStatus(this.props.id, status)
+    this.props.hideModalAndChangeStatus(this.props._id, status)
   };
 
   disagree = (e) => {
@@ -96,7 +96,7 @@ class ModalChangenewStatus extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let todo = state.todos.filter((todo) => todo.id === state.id)[0];
+  let todo = state.todos.filter((todo) => todo._id === state._id)[0];
 
   return {
     status: todo ? todo.status : null,

@@ -14,12 +14,12 @@ export default function todos(state = initialState, action) {
       ];
 
     case CONSTANTS.REMOVE_TODO:
-      return state.filter((el) => el.id !== action.id);
+      return state.filter((el) => el._id !== action._id);
 
     case CONSTANTS.UPDATE_TODO:
       console.log(action.todo)
       return state.map((todo) => (
-        todo.id === action.todo.id
+        todo._id === action.todo._id
         ? Object.assign(todo, action.todo)
         : todo
       ));

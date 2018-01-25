@@ -56,18 +56,18 @@ class Input extends Component {
     const {
       todo,
       updateTodo,
-      id
+      _id
     } = this.props;
 
     if (e.charCode === 13) {
       e.preventDefault();
 
       let obj = {
-        id: todo.id,
+        _id: todo._id,
         body: e.target.value
       };
 
-      updateTodo(obj, id)
+      updateTodo(obj, _id)
     }
   };
 
@@ -80,7 +80,7 @@ class Input extends Component {
   render() {
     const {
       text,
-      id,
+      _id,
       pushTo
     } = this.props;
 
@@ -89,7 +89,7 @@ class Input extends Component {
     } = this.state;
 
     // If it is editing
-    if (id) {
+    if (_id) {
       return (
         <div className="edit-todo">
           <input
@@ -119,7 +119,7 @@ class Input extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     text: state.inputText,
-    todo: state.todos.filter((todo) => todo.id === ownProps.id)[0]
+    todo: state.todos.filter((todo) => todo._id === ownProps._id)[0]
   }
 };
 
