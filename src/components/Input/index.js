@@ -61,10 +61,11 @@ class Input extends Component {
 
     if (e.charCode === 13) {
       e.preventDefault();
-
+      console.log(status);
       let obj = {
         _id: todo._id,
-        body: e.target.value
+        body: e.target.value,
+        status: todo.status
       };
 
       updateTodo(obj, _id)

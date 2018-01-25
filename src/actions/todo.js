@@ -3,11 +3,13 @@ import ACTIONS from '../constants/';
 import { push } from 'react-router-redux'
 
 export const updateTodo = (todo, _id) => {
+  todo.modified = new Date().toLocaleDateString();
+  
   return dispatch => {
     if (todo.body) {
       fetch('/updateTodo', {
         method: 'POST',
-        body: _id
+        body: JSON.stringify(todo)
       })
       .then(response => response.json())
       .then(response => {
@@ -15,11 +17,7 @@ export const updateTodo = (todo, _id) => {
         if (response) {
           dispatch({
             type: ACTIONS.UPDATE_TODO,
-            todo: {
-              body: todo.body,
-              _id,
-              modified: new Date().toLocaleDateString()
-            }
+            todo: response
           });
           dispatch(push(`/${ _id }`))
         } else {
@@ -45,13 +43,7 @@ export const newText = (text) => ({
 export const addTodo = (todo) => {
   return {
     type: ACTIONS.ADD_TODO,
-    payload: {
-      created: todo.date,
-      modified: todo.date,
-      body: todo.text,
-      status: 'new',
-      _id: todo._id
-    }
+    todo
   }
 };
 
@@ -75,11 +67,11 @@ export function addNewTodo(text) {
 
     let state = getState();
     let isUnic = true,
-      _id = Math.floor(Math.random() * 10000).toString();
+      id = Math.floor(Math.random() * 10000).toString();
 
     // if empty
     if (!text) {
-      dispatch(push(`/${ _id }/error`));
+      dispatch(push(`/${ id }/error`));
       return false
     }
 
@@ -90,9 +82,10 @@ export function addNewTodo(text) {
     });
 
     let todo = {
-      text,
-      _id,
-      date
+      created: date,
+      modified: date,
+      body: text,
+      status: 'new'
     };
 
     if (isUnic) {
@@ -103,15 +96,15 @@ export function addNewTodo(text) {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          dispatch(addTodo(todo));
+          dispatch(addTodo(response));
           dispatch(resetText());
         } else {
-          dispatch(push(`/${_id}/error`));
+          dispatch(push(`/${id}/error`));
         }
       })
       .catch(error => console.log(error));
     } else {
-      dispatch(push(`/${_id}/error`));
+      dispatch(push(`/${id}/error`));
     }
   };
 }
@@ -144,14 +137,14 @@ export function actionChangeStatus(_id, status) {
     todo.status = status;
     todo.modified = modified;
 
-    fetch('/changeStatus', {
+    fetch('/updateTodo', {
       method: 'POST',
       body: JSON.stringify(todo)
     })
     .then(response => response.json())
     .then(response => {
       if (response) {
-        dispatch(changeStatus(todo));
+        dispatch(changeStatus(response));
       } else {
         dispatch(push(`/${_id}/error`));
       }

@@ -9,7 +9,7 @@ export default function todos(state = initialState, action) {
 
     case CONSTANTS.ADD_TODO:
       return [
-        action.payload,
+        action.todo,
         ...state
       ];
 
