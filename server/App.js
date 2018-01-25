@@ -5,6 +5,7 @@ const router = new Router();
 const ObjectId = require('mongodb').ObjectID;
 const koaBody = require('koa-body');
 const mongo = require('koa-mongo');
+// const MongoClient = require('mongodb').MongoClient;
 
 const app = new Koa();
 
@@ -14,7 +15,7 @@ app.use(mongo({
 
 router.post('/getTodos', async (ctx) => {
 
-  await ctx.mongo.db('todos').collection('todos').find().sort({ created: 1 }).toArray().then((todos) => {
+  await ctx.mongo.db('todos').collection('todos').find().toArray().then((todos) => {
     ctx.body = JSON.stringify(todos);
   })
 
@@ -61,7 +62,7 @@ router.post('/removeTodo', koaBody(), async (ctx) => {
 
 });
 
-router.get('*', serve(__dirname + '/../build'));
+router.get('*', serve(__dirname + '/../build/'));
 
 app.use(router.routes())
 
